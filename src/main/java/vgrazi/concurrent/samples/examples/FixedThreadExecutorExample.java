@@ -60,18 +60,18 @@ public class FixedThreadExecutorExample extends ExecutorsExample {
 
   @Override
   protected String getSnippetText() {
-    return  "  <0 comment>// FixedThreadPool Construction\n" +
-            "  <0 keyword>final <0 default>Executor executor =\n" +
-            "          Executors.newFixedThreadPool(<0 literal>4<0 default>);\n" +
-            "  <3 comment>// Use the Executor to execute a Runnable\n" +
-            "  <3 default>executor.execute(<3 keyword>new <3 default>Runnable() {\n" +
-            "    <3 keyword>@Override\n" +
-            "    public void <3 default>run() {\n" +
-            "      <3 comment>// Do work\n" +
-            "    <3 default>}});\n" +
-            "\n" +
-            "  <4 comment>// Prestarting Core Threads\n" +
-            "  <4 keyword>int <4 default>count = ((ThreadPoolExecutor)executor)\n" +
-            "          .prestartAllCoreThreads();\n";
+    return "  <0 comment>// FixedThreadPool Construction\n" +
+      "  <0 keyword>final <0 default>Executor executor =\n" +
+      "          Executors.newFixedThreadPool(<0 literal>4<0 default>);\n" +
+      "  <3 comment>// Use the Executor to execute a Runnable\n" +
+      "  <3 default>executor.execute(<3 keyword>new <3 default>Runnable() {\n" +
+      "    <3 keyword>@Override\n" +
+      "    public void <3 default>run() {\n" +
+      "      <3 comment>// Do work\n" +
+      "    <3 default>}});\n" +
+      "\n" +
+      "  <4 comment>// Prestarting Core Threads\n" +
+      "  <4 keyword>int <4 default>count = ((ThreadPoolExecutor)executor)\n" +
+      "          .prestartAllCoreThreads();\n";
   }
 }

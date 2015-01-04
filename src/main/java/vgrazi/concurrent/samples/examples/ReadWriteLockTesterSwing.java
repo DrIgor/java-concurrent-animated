@@ -18,6 +18,7 @@ public class ReadWriteLockTesterSwing {
   private final JPanel buttons = new JPanel(new GridLayout(1, 6));
   // create a thread pool for launching
   private final ExecutorService pool = Executors.newCachedThreadPool();
+
   public static void main(String[] args) {
     new ReadWriteLockTesterSwing();
   }
@@ -43,9 +44,9 @@ public class ReadWriteLockTesterSwing {
 
     // user can toggle the RWLock - this creates default (unfair)
     createButton("construct default", new Runnable() {
-        public void run() {
-          createDefaultRWLock();
-        }
+      public void run() {
+        createDefaultRWLock();
+      }
     });
 
     // user can toggle the RWLock - this creates fair)
@@ -74,48 +75,49 @@ public class ReadWriteLockTesterSwing {
 
     // acquire a write lock as soon as it is available
     createButton("writeLock", new Runnable() {
-          public void run() {
-            rwlock.writeLock().lock();
-            text.append(">>>> write lock acquired" + status());
-            synchronized (WRITE_MUTEX) {
-              try {
-                WRITE_MUTEX.wait();
-                rwlock.writeLock().unlock();
-                text.append("<<<< write lock released" + status());
-              } catch (InterruptedException e1) {
-                Thread.currentThread().interrupt();
-              }
-            }
+      public void run() {
+        rwlock.writeLock().lock();
+        text.append(">>>> write lock acquired" + status());
+        synchronized (WRITE_MUTEX) {
+          try {
+            WRITE_MUTEX.wait();
+            rwlock.writeLock().unlock();
+            text.append("<<<< write lock released" + status());
+          } catch (InterruptedException e1) {
+            Thread.currentThread().interrupt();
           }
+        }
+      }
     });
 
     // release a read lock if any
     createButton("readRelease", new Runnable() {
       public void run() {
-            synchronized (READ_MUTEX) {
-              READ_MUTEX.notify();
-            }
-          }
+        synchronized (READ_MUTEX) {
+          READ_MUTEX.notify();
+        }
+      }
     });
 
     // release a write lock if any
     createButton("writeRelease", new Runnable() {
       public void run() {
-            synchronized (WRITE_MUTEX) {
-              WRITE_MUTEX.notify();
-            }
-          }
+        synchronized (WRITE_MUTEX) {
+          WRITE_MUTEX.notify();
+        }
+      }
     });
     frame.setVisible(true);
   }
 
   private String status() {
-    return " read locks:" + rwlock.getReadLockCount() + " writeLocks:" + rwlock.getWriteHoldCount() + " waiting:" + rwlock.getQueueLength() +"\n";
+    return " read locks:" + rwlock.getReadLockCount() + " writeLocks:" + rwlock.getWriteHoldCount() + " waiting:" + rwlock.getQueueLength() + "\n";
   }
 
   /**
    * Creates a button with the supplied label, and executes the runnable in a thread when the button is clicked
-   * @param label what to display
+   *
+   * @param label    what to display
    * @param runnable what to run
    */
   private void createButton(String label, final Runnable runnable) {

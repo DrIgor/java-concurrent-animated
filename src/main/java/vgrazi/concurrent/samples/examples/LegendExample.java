@@ -131,9 +131,9 @@ public class LegendExample extends ConcurrentExample {
         break;
       case 10:
         startButton.setText("Restart Demo");
-        sprites[18] = createTextSprite(   "Page Down ");
-        sprites[19] = createTextSprite( "to start    ");
-        sprites[20] = createTextSprite( "presentation");
+        sprites[18] = createTextSprite("Page Down ");
+        sprites[19] = createTextSprite("to start    ");
+        sprites[20] = createTextSprite("presentation");
         sprites[18].setAcquiring();
         sprites[19].setAcquiring();
         sprites[20].setAcquiring();

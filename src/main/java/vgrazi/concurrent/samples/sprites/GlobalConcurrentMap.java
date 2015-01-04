@@ -4,15 +4,15 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentMap;
 
 public class GlobalConcurrentMap {
-	private static ConcurrentMap<Integer, String> map;
+  private static ConcurrentMap<Integer, String> map;
 
-	public static ConcurrentMap<Integer, String> get() {
-		return GlobalConcurrentMap.map;
-	}
+  public static ConcurrentMap<Integer, String> get() {
+    return GlobalConcurrentMap.map;
+  }
 
-	public static void set(ConcurrentMap<Integer, String> map) {
-		GlobalConcurrentMap.map = map;
-	}
+  public static void set(ConcurrentMap<Integer, String> map) {
+    GlobalConcurrentMap.map = map;
+  }
 
   public static Set<Integer> keySet() {
     return map.keySet();

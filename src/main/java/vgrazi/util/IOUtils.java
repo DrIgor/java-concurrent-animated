@@ -14,14 +14,14 @@ public class IOUtils {
       reader = new BufferedReader(new InputStreamReader(stream));
       StringBuffer sb = new StringBuffer();
       String line;
-      while((line = reader.readLine()) != null) {
+      while ((line = reader.readLine()) != null) {
         line = line.replace("<!--.*-->", "");
         sb.append(line);
         sb.append("\r\n");
       }
       return sb.toString();
     } finally {
-      if(reader != null) {
+      if (reader != null) {
         reader.close();
       }
     }

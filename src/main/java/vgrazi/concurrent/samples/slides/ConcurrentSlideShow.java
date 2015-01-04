@@ -18,10 +18,9 @@ public class ConcurrentSlideShow {
    */
   public static void bumpSlideShowIndex() {
     if (slideShowSlides != null) {
-      if(slideShowIndex < slideShowSlides.size()) {
+      if (slideShowIndex < slideShowSlides.size()) {
         slideShowIndex++;
-      }
-      else {
+      } else {
         slideShowIndex = 1;
       }
     }
@@ -29,10 +28,9 @@ public class ConcurrentSlideShow {
   }
 
   public static void kickSlideShowIndex() {
-    if(slideShowIndex > 1) {
+    if (slideShowIndex > 1) {
       slideShowIndex--;
-    }
-    else {
+    } else {
       slideShowIndex = slideShowSlides.size();
     }
 //    System.out.println("ConcurrentSlideShow.bumpSlideShowIndex displaying slide " + slideShowIndex);
@@ -48,6 +46,7 @@ public class ConcurrentSlideShow {
 
   /**
    * When ConcurrrentExampleLauncher starts this example, it create a TreeMap&lt;Integer, ActionListener> for the slides.
+   *
    * @param slideShowSlides the TreeMap&lt;Integer, ActionListener> containing all of the slides keyed by index.
    */
   public static void setSlideShowSlides(TreeMap<Integer, ActionListener> slideShowSlides) {
@@ -61,10 +60,10 @@ public class ConcurrentSlideShow {
   public static void nextSlide() {
     bumpSlideShowIndex();
     ActionListener listener = null;
-    if (slideShowSlides != null ) {
+    if (slideShowSlides != null) {
       listener = getCurrentSlideAction();
     }
-    if(listener != null) {
+    if (listener != null) {
       listener.actionPerformed(null);
     }
   }
@@ -72,7 +71,7 @@ public class ConcurrentSlideShow {
   public static void previousSlide() {
     kickSlideShowIndex();
     ActionListener listener = getCurrentSlideAction();
-    if(listener != null) {
+    if (listener != null) {
       listener.actionPerformed(null);
     }
   }

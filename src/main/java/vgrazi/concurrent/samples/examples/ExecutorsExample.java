@@ -47,7 +47,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     super(label, frame, ExampleType.POOLED, 530, false, slideShowIndex);
   }
 
-  protected  abstract void initializeThreadPool();
+  protected abstract void initializeThreadPool();
 
   @Override
   protected abstract void setDefaultState();
@@ -56,10 +56,10 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
   @Override
   public String getToolTipText() {
     return "<HTML>" +
-            "<body>" +
-            "" +
-            "</body>" +
-            "</HTML>";
+      "<body>" +
+      "" +
+      "</body>" +
+      "</HTML>";
   }
 
   public String getDescriptionHtml() {
@@ -120,7 +120,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
     addButtonSpacer();
     initializeButton(setRejectedExecutionHandlerCallerRunsButton, new Runnable() {
       public void run() {
-        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy(){
+        ((ThreadPoolExecutor) executor).setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy() {
           @Override
           public void rejectedExecution(Runnable r, ThreadPoolExecutor e) {
             final ConcurrentSprite sprite = ((ExampleRunnable) r).getSprite();
@@ -216,6 +216,7 @@ public abstract class ExecutorsExample extends ConcurrentExample implements Pool
       this.sprite = sprite;
       this.index = index;
     }
+
     public void run() {
       setState(3);
       sprite.setAcquired();

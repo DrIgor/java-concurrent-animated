@@ -40,8 +40,7 @@ public class ConcurrentSprite {
   public void setPooled(boolean b) {
     if (b) {
       setColor(ConcurrentExampleConstants.WAITING_THREAD_STATE_COLOR);
-    }
-    else {
+    } else {
       setColor(ConcurrentExampleConstants.RUNNABLE_THREAD_STATE_COLOR);
     }
   }
@@ -134,7 +133,7 @@ public class ConcurrentSprite {
   public void setAcquired() {
     state = SpriteState.ACQUIRED;
     destination = ConcurrentSpriteCanvas.RELEASE_BORDER;
-    if(ConcurrentSpriteCanvas.exampleType == ExampleType.WORKING) {
+    if (ConcurrentSpriteCanvas.exampleType == ExampleType.WORKING) {
       destination += 30;
     }
     //    if(currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
@@ -146,12 +145,12 @@ public class ConcurrentSprite {
    * Draw this Sprite pulling right, from mutex right border
    */
   public void setPulling() {
-    if(state == SpriteState.ACQUIRING) {
+    if (state == SpriteState.ACQUIRING) {
       state = SpriteState.PULLING;
     }
     final int delta = 155;
     destination = ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta + 10;
-    if(currentLocation == 0) {
+    if (currentLocation == 0) {
       setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER + delta);
     }
   }
@@ -164,7 +163,7 @@ public class ConcurrentSprite {
     if (state != SpriteState.REJECTED) {
       state = SpriteState.RELEASED;
       destination = Integer.MAX_VALUE;
-      if(currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
+      if (currentLocation < ConcurrentSpriteCanvas.ACQUIRE_BORDER) {
         setCurrentLocation(ConcurrentSpriteCanvas.ACQUIRE_BORDER);
       }
     }
@@ -218,10 +217,9 @@ public class ConcurrentSprite {
 
   public void bumpCurrentLocation(int pixels) {
     setCurrentLocation(currentLocation + pixels);
-    if(currentLocation > destination) {
+    if (currentLocation > destination) {
       setCurrentLocation(destination);
-    }
-    else if(currentLocation == destination) {
+    } else if (currentLocation == destination) {
       setCurrentLocation(destination - ConcurrentSpriteCanvas.BACK_DELTA);
     }
   }
@@ -236,11 +234,13 @@ public class ConcurrentSprite {
 
   /**
    * returns true if the arrow is entirely within the mutex borders
+   *
    * @return
    */
   public boolean isInMutexBorders() {
     return currentLocation >= ConcurrentSpriteCanvas.ACQUIRE_BORDER;
   }
+
   /**
    * circle location is only used by working threads to display the circular animation path
    * Other animations ignore it.
@@ -269,13 +269,12 @@ public class ConcurrentSprite {
     if (state != null) {
       Color color = ThreadStateToColorMapper.getColorForState(this);
       if (color != null) {
-        return color ;
+        return color;
       }
     }
     if (color != null) {
       return color;
-    }
-    else {
+    } else {
       return ConcurrentExampleConstants.RUNNABLE_COLOR;
     }
   }
@@ -306,6 +305,7 @@ public class ConcurrentSprite {
 
   /**
    * Used for CAS operations, value is the new value
+   *
    * @return the value
    */
   public int getValue() {
@@ -314,6 +314,7 @@ public class ConcurrentSprite {
 
   /**
    * Used for CAS operations, value is the new value
+   *
    * @param value the value
    */
   public void setValue(int value) {
@@ -322,6 +323,7 @@ public class ConcurrentSprite {
 
   /**
    * Used for CAS operations, checkValue is the originally checked value
+   *
    * @return the value of checkValue
    */
   public int getExpectedValue() {
@@ -330,6 +332,7 @@ public class ConcurrentSprite {
 
   /**
    * Used for CAS operations, checkValue is the originally checked value
+   *
    * @param checkValue the value
    */
   public void setExpectedValue(int checkValue) {

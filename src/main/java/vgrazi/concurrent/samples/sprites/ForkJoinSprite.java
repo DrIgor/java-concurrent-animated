@@ -13,6 +13,7 @@ public class ForkJoinSprite extends ConcurrentSprite {
   private int levelIndex = -1;
   private ForkJoinThread forkJoinThread;
   private int solution;
+
   public ForkJoinSprite(int start, int end, int level) {
 
     // index not used
@@ -42,12 +43,13 @@ public class ForkJoinSprite extends ConcurrentSprite {
   /**
    * Sets the complete indicator. Also, sets the forkJoinThread to null
    * synchronized to ensure happens before ordering: so that "solution" is visible before "complete"
+   *
    * @param solution
    */
   public synchronized void setComplete(int solution) {
     this.solution = solution;
     this.complete = true;
-    if(forkJoinThread != null) {
+    if (forkJoinThread != null) {
       this.forkJoinThread.setCurrentSprite(null);
       this.forkJoinThread = null;
     }

@@ -22,18 +22,19 @@ public class ImagePanelActionListener implements ActionListener {
   private final MenuBuilder menuBuilder;
 
   /**
-   * @param imageName the path name of the image. Null if none
-   * @param htmlText the text to overlay the image, in HTML format. null if none
+   * @param imageName   the path name of the image. Null if none
+   * @param htmlText    the text to overlay the image, in HTML format. null if none
    * @param resizeImage
    * @param alignment
    */
   public ImagePanelActionListener(String imageName, String htmlText, boolean resizeImage, Alignment alignment, int menuIndex, MenuBuilder menuBuilder) {
     this(null, imageName, htmlText, resizeImage, alignment, menuIndex, menuBuilder);
   }
+
   /**
-   * @param title the title to display in the frame. null to leave the current title
-   * @param imageName the path name of the image. Null if none
-   * @param htmlText the text to overlay the image, in HTML format. null if none
+   * @param title       the title to display in the frame. null to leave the current title
+   * @param imageName   the path name of the image. Null if none
+   * @param htmlText    the text to overlay the image, in HTML format. null if none
    * @param resizeImage
    * @param alignment
    */
@@ -44,10 +45,9 @@ public class ImagePanelActionListener implements ActionListener {
     this.alignment = alignment;
     this.menuIndex = menuIndex;
     this.menuBuilder = menuBuilder;
-    if(htmlText != null) {
+    if (htmlText != null) {
       label = new JLabel(htmlText);
-    }
-    else {
+    } else {
       label = new JLabel();
     }
   }

@@ -30,22 +30,22 @@ public class AtomicIntegerExampleOrig extends ConcurrentExample {
   protected String getSnippet() {
     String snippet;
     snippet = "<html><PRE>\n" +
-       "<FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       " \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Construct the AtomicVariable with the initial value</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> AtomicInteger atomicVariable = </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> AtomicInteger(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">0</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">); \n" +
-       " \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Arithmetic functions such as add, subtract, multiply,</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// divide, perform their function in an atomic fashion</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// and return the result.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> result = atomicVariable.incrementAndGet(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">3</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">); \n" +
-       " \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// compareAndSet does an atomic &quot;check and set if&quot;.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Value is only set if the original value == assumedValue</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> assumedValue = </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">10</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">, newValue = </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">5</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">; \n" +
-       "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>boolean</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> success = atomicVariable.compareAndSet(assumedValue, newValue); \n" +
-       " \n" +
-       "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</PRE></html>";
+      "<FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      " \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Construct the AtomicVariable with the initial value</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> AtomicInteger atomicVariable = </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>new</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> AtomicInteger(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">0</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">); \n" +
+      " \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Arithmetic functions such as add, subtract, multiply,</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// divide, perform their function in an atomic fashion</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// and return the result.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>final</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> result = atomicVariable.incrementAndGet(</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">3</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">); \n" +
+      " \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// compareAndSet does an atomic &quot;check and set if&quot;.</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Value is only set if the original value == assumedValue</I></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>int</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> assumedValue = </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">10</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">, newValue = </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#0000ff\">5</FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\">; \n" +
+      "    </FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000080\"><B>boolean</B></FONT><FONT style=\"font-family:monospaced;\" COLOR=\"#000000\"> success = atomicVariable.compareAndSet(assumedValue, newValue); \n" +
+      " \n" +
+      "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n</PRE></html>";
 
     return snippet;
   }
@@ -65,7 +65,7 @@ public class AtomicIntegerExampleOrig extends ConcurrentExample {
   }
 
   protected void initializeComponents() {
-    if(!initialized) {
+    if (!initialized) {
       initializeButton(incrementButton, new Runnable() {
         public void run() {
 
@@ -78,9 +78,9 @@ public class AtomicIntegerExampleOrig extends ConcurrentExample {
 
       initializeButton(commitButton, new Runnable() {
         public void run() {
-          synchronized(AtomicIntegerExampleOrig.this) {
+          synchronized (AtomicIntegerExampleOrig.this) {
             final boolean success = atomicVariable.compareAndSet(10, 5);
-            if(success) {
+            if (success) {
               message2("atomicVariable.compareAndSet(10, 5) Commited", ConcurrentExampleConstants.MESSAGE_COLOR);
             } else {
               message2("atomicVariable.compareAndSet(10, 5) NOT Commited", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);

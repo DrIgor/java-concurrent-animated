@@ -74,7 +74,7 @@ public class MenuBuilder extends DefaultHandler {
 
   @Override
   public void startElement(final String uri, String localName, String qName, final Attributes attributes) throws SAXException {
-    if("ImageSlide".equals(qName)) {
+    if ("ImageSlide".equals(qName)) {
       menuIndex++;
       imageSlide = true;
       String htmlFile = attributes.getValue("text");
@@ -85,23 +85,19 @@ public class MenuBuilder extends DefaultHandler {
         } catch (IOException e) {
           e.printStackTrace();
         }
-      }
-      else {
+      } else {
         initializeImageSlide(attributes.getValue("image"), delta++, false, Alignment.CENTER, menuIndex);
       }
-    }
-    else if("MenuItem".equals(qName)) {
+    } else if ("MenuItem".equals(qName)) {
       if (!imageSlide) {
         menuIndex++;
-      }
-      else {
+      } else {
         imageSlide = false;
       }
       // don't set imageSlide = false, an imageSlide followed by a MenuItem is still an ImageSlide
       label = attributes.getValue("label");
       examples = new ArrayList<Example>();
-    }
-    else if("Example".equals(qName)) {
+    } else if ("Example".equals(qName)) {
       imageSlide = false;
 //      <Example class="vgrazi.concurrent.samples.examples.BlockingQueueExample" paging="true" fair="false" mutexLabel="BlockingQueue"/>
       Example example = new Example(attributes.getValue("class"), attributes.getValue("paging"), attributes.getValue("fair"), attributes.getValue("mutexLabel"));
@@ -111,11 +107,10 @@ public class MenuBuilder extends DefaultHandler {
 //      imageSlide = false;
 //      initializeReferencesMenuItem();
 //    }
-    else if("Help".equals(qName)) {
+    else if ("Help".equals(qName)) {
       imageSlide = false;
       initializeHelpMenuItem();
-    }
-    else if("Hyperlink".equals(qName)) {
+    } else if ("Hyperlink".equals(qName)) {
       if (Desktop.isDesktopSupported()) {
         menuIndex++;
         imageSlide = false;
@@ -150,33 +145,33 @@ public class MenuBuilder extends DefaultHandler {
 
   @Override
   public void endElement(String uri, String localName, String qName) throws SAXException {
-    if("MenuItem".equals(qName)) {
+    if ("MenuItem".equals(qName)) {
       ConcurrentExample[] concurrentExamples = new ConcurrentExample[this.examples.size()];
       Example example = null;
-        try {
-          for (int i = 0, examplesSize = examples.size(); i < examplesSize; i++) {
-            example = examples.get(i);
-            Class exampleClass = Class.forName(example.className);
-            try {
-              Constructor constructor = exampleClass.getConstructor(constructorTypes1);
-              concurrentExamples[i] = (ConcurrentExample) constructor.newInstance(example.mutexLabel, container, example.fair, (example.paging ? delta++ : -1));
-            } catch (NoSuchMethodException e) {
-              Constructor constructor = exampleClass.getConstructor(constructorTypes2);
-              concurrentExamples[i] = (ConcurrentExample) constructor.newInstance(example.mutexLabel, container, (example.paging ? delta++ : -1));
-            }
-            concurrentExamples[i].setMenuIndex(menuIndex);
+      try {
+        for (int i = 0, examplesSize = examples.size(); i < examplesSize; i++) {
+          example = examples.get(i);
+          Class exampleClass = Class.forName(example.className);
+          try {
+            Constructor constructor = exampleClass.getConstructor(constructorTypes1);
+            concurrentExamples[i] = (ConcurrentExample) constructor.newInstance(example.mutexLabel, container, example.fair, (example.paging ? delta++ : -1));
+          } catch (NoSuchMethodException e) {
+            Constructor constructor = exampleClass.getConstructor(constructorTypes2);
+            concurrentExamples[i] = (ConcurrentExample) constructor.newInstance(example.mutexLabel, container, (example.paging ? delta++ : -1));
           }
-        } catch (NoSuchMethodException e) {
-          throw new SAXException("No constructor for " + example.className);
-        } catch (ClassNotFoundException e) {
-          throw new SAXException("No class found " + example.className);
-        } catch (InvocationTargetException e) {
-          throw new SAXException("Invocation target exception trying to construct " + example.className);
-        } catch (InstantiationException e) {
-          throw new SAXException("Invocation target exception trying to instantiate " + example.className);
-        } catch (IllegalAccessException e) {
-          throw new SAXException("IllegalAccess exception trying to instantiate " + example.className);
+          concurrentExamples[i].setMenuIndex(menuIndex);
         }
+      } catch (NoSuchMethodException e) {
+        throw new SAXException("No constructor for " + example.className);
+      } catch (ClassNotFoundException e) {
+        throw new SAXException("No class found " + example.className);
+      } catch (InvocationTargetException e) {
+        throw new SAXException("Invocation target exception trying to construct " + example.className);
+      } catch (InstantiationException e) {
+        throw new SAXException("Invocation target exception trying to instantiate " + example.className);
+      } catch (IllegalAccessException e) {
+        throw new SAXException("IllegalAccess exception trying to instantiate " + example.className);
+      }
       initializeMenuItem(label, concurrentExamples);
     }
   }
@@ -191,7 +186,8 @@ public class MenuBuilder extends DefaultHandler {
   /**
    * Creates a menu in the menu bar with the specified label. Under that menu, creates a menu item for each supplied
    * example, using the example title as the menu item label
-   * @param menuLabel the label for the menu
+   *
+   * @param menuLabel     the label for the menu
    * @param examplePanels the examples to add to the menu
    */
   private void initializeMenuItem(final String menuLabel, final ConcurrentExample... examplePanels) {
@@ -209,7 +205,7 @@ public class MenuBuilder extends DefaultHandler {
           slideShowSlides.put(examplePanel.getSlideNumber(), actionListener);
         }
         String title = examplePanel.getTitle();
-        if(title == null || title.trim().equals("")) {
+        if (title == null || title.trim().equals("")) {
           title = menuLabel;
         }
         MenuItem menuItem = new MenuItem(title);

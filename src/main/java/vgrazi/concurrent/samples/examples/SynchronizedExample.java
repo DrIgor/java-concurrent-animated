@@ -64,11 +64,12 @@ public class SynchronizedExample extends ConcurrentExample {
   public SynchronizedExample(String label, Container frame, int slideNumber) {
     super(label, frame, ExampleType.BLOCKING, 552, true, slideNumber);
   }
-    protected void createCanvas() {
-        setCanvas(new BasicCanvas(this, getTitle()));
-    }
 
-    @Override
+  protected void createCanvas() {
+    setCanvas(new BasicCanvas(this, getTitle()));
+  }
+
+  @Override
   public String getDescriptionHtml() {
     return "";
   }
@@ -76,29 +77,29 @@ public class SynchronizedExample extends ConcurrentExample {
   @Override
   protected String getSnippetText() {
     return
-            "  <1 keyword>synchronized <1 default>(object) {\n" +
-            "    // do some work\n" +
-            "    <3 keyword>try {\n" +
-            "      <3 keyword>while<3 default>(!condition){\n" +
-            "      <3 default>  object.wait();\n" +
-            "      <3 default>}\n" +
-            "    } <3 keyword>catch <3 default>(InterruptedException e) {\n" +
-            "      Thread.currentThread().interrupt();\n" +
-            "    }\n" +
-            "    <2 default>// releasing lock\n" +
-            "  <1 default>}\n" +
-            "  \n" +
-            "  <4 keyword>synchronized <4 default>(object) {\n" +
-            "    condition = true;\n" +
-            "    object.notify();\n" +
-            "  }\n" +
-            "  \n" +
-            "  <5 keyword>synchronized <5 default>(object) {\n" +
-            "    condition = true;\n" +
-            "    object.notifyAll();\n" +
-            "  }\n" +
-            "  \n" +
-            "  <6 default>thread.interrupt();";
+      "  <1 keyword>synchronized <1 default>(object) {\n" +
+        "    // do some work\n" +
+        "    <3 keyword>try {\n" +
+        "      <3 keyword>while<3 default>(!condition){\n" +
+        "      <3 default>  object.wait();\n" +
+        "      <3 default>}\n" +
+        "    } <3 keyword>catch <3 default>(InterruptedException e) {\n" +
+        "      Thread.currentThread().interrupt();\n" +
+        "    }\n" +
+        "    <2 default>// releasing lock\n" +
+        "  <1 default>}\n" +
+        "  \n" +
+        "  <4 keyword>synchronized <4 default>(object) {\n" +
+        "    condition = true;\n" +
+        "    object.notify();\n" +
+        "  }\n" +
+        "  \n" +
+        "  <5 keyword>synchronized <5 default>(object) {\n" +
+        "    condition = true;\n" +
+        "    object.notifyAll();\n" +
+        "  }\n" +
+        "  \n" +
+        "  <6 default>thread.interrupt();";
   }
 
   @Override
@@ -130,7 +131,7 @@ public class SynchronizedExample extends ConcurrentExample {
         public void run() {
           ConcurrentSprite sprite = null;
           if (!sprites.isEmpty()) {
-            if(lockedThread != null) {
+            if (lockedThread != null) {
               sprite = lockedThread;
               sprite.setRejected();
             }
@@ -223,8 +224,7 @@ public class SynchronizedExample extends ConcurrentExample {
           if (!sprite.getThread().isInterrupted()) {
             sprite.setAcquired();
             sprite.setThreadState(Thread.State.RUNNABLE);
-          }
-          else {
+          } else {
             sprite.setRejected();
             sprite.setThreadState(Thread.State.TERMINATED);
           }
@@ -349,7 +349,7 @@ public class SynchronizedExample extends ConcurrentExample {
 
   @Override
   public void reset() {
-    for (ConcurrentSprite sprite: sprites) {
+    for (ConcurrentSprite sprite : sprites) {
       sprite.getThread().interrupt();
     }
     setState(0);

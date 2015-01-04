@@ -4,6 +4,7 @@ import vgrazi.concurrent.samples.ConcurrentExampleConstants;
 import vgrazi.concurrent.samples.ExampleType;
 import vgrazi.concurrent.samples.canvases.BasicCanvas;
 import vgrazi.concurrent.samples.sprites.ConcurrentSprite;
+
 import java.util.List;
 import javax.swing.*;
 import java.awt.*;
@@ -39,37 +40,37 @@ public class ReentrantLockExample extends ConcurrentExample {
     return "ReentrantLock";
   }
 
-    protected void createCanvas() {
-        setCanvas(new BasicCanvas(this, getTitle()));
-    }
+  protected void createCanvas() {
+    setCanvas(new BasicCanvas(this, getTitle()));
+  }
 
   @Override
   protected String getSnippetText() {
     return "    // Constructor\n" +
-            "    <0 keyword>final <0 default>Lock lock = <0 keyword>new <0 default>ReentrantLock();\n" +
-            "    <1 default>lock.lock();\n" +
-            "\n" +
-            "    <4 keyword>try<4 default> {\n" +
-            "      lock.lockInterruptibly();\n" +
-            "    } <4 keyword>catch <4 default>(InterruptedException e) {...}\n" +
-            "\n" +
-            "    <2 default>lock.unlock();\n" +
-            "\n" +
-            "    <3 keyword>boolean <3 default>acquired = <3 literal>false<3 default>;\n" +
-            "    <3 keyword>try<3 default> {\n" +
-            "      acquired = lock.tryLock(<3 literal>1L<3 default>, TimeUnit.SECONDS);\n" +
-            "      <3 keyword>if<3 default>(acquired) {\n" +
-            "        doSomething();\n" +
-            "      }\n" +
-            "    } <3 keyword>catch<3 default> (InterruptedException e) {...\n" +
-            "    } <3 keyword>finally {\n" +
-            "      if <3 default>(acquired) {\n" +
-            "        lock.unlock();\n" +
-            "      }\n" +
-            "    }\n" +
-            "    <6 default>&lt;lockedThread>.interrupt();\n" +
-            "    <5 default>&lt;blockedThread>.interrupt();" +
-            "\n";
+      "    <0 keyword>final <0 default>Lock lock = <0 keyword>new <0 default>ReentrantLock();\n" +
+      "    <1 default>lock.lock();\n" +
+      "\n" +
+      "    <4 keyword>try<4 default> {\n" +
+      "      lock.lockInterruptibly();\n" +
+      "    } <4 keyword>catch <4 default>(InterruptedException e) {...}\n" +
+      "\n" +
+      "    <2 default>lock.unlock();\n" +
+      "\n" +
+      "    <3 keyword>boolean <3 default>acquired = <3 literal>false<3 default>;\n" +
+      "    <3 keyword>try<3 default> {\n" +
+      "      acquired = lock.tryLock(<3 literal>1L<3 default>, TimeUnit.SECONDS);\n" +
+      "      <3 keyword>if<3 default>(acquired) {\n" +
+      "        doSomething();\n" +
+      "      }\n" +
+      "    } <3 keyword>catch<3 default> (InterruptedException e) {...\n" +
+      "    } <3 keyword>finally {\n" +
+      "      if <3 default>(acquired) {\n" +
+      "        lock.unlock();\n" +
+      "      }\n" +
+      "    }\n" +
+      "    <6 default>&lt;lockedThread>.interrupt();\n" +
+      "    <5 default>&lt;blockedThread>.interrupt();" +
+      "\n";
 
   }
 
@@ -262,6 +263,7 @@ public class ReentrantLockExample extends ConcurrentExample {
 
   /**
    * Sits in a wait block until MUTEX.notify() is called by the locked thread.
+   *
    * @param sprite the sprite that has acquired, waiting for unlock or interrupt
    */
   private void waitForUnlockNotification(ConcurrentSprite sprite) {

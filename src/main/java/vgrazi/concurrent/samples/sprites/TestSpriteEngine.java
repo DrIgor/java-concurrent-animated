@@ -70,7 +70,7 @@ public class TestSpriteEngine {
     button = new JButton("Released");
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        if(!acquiredSprites.empty()) {
+        if (!acquiredSprites.empty()) {
           ConcurrentSprite sprite = (ConcurrentSprite) acquiredSprites.pop();
           sprite.setReleased();
         }

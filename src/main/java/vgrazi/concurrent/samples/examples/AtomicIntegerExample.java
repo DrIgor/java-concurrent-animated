@@ -47,27 +47,27 @@ public class AtomicIntegerExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return  " <0 comment>// Construct the AtomicVariable, <br/>" +
-            " // assigning an initial value\n" +
-            " <0 keyword>final <0 default>AtomicInteger atomicInteger<br>" +
-            "   = <0 keyword>new <0 default>AtomicInteger(<0 literal>1<0 default>);\n" +
-            " \n" +
-            " <1 comment>// compareAndSet does an atomic<br/>" +
-            " //  \"check and set if\".<br/>" +
-            " // Value is only set<br/>" +
-            " //  if original value == assumed value\n" +
-            " <1 keyword>int <1 default>assumedValue = <1 literal>10<1 default>, newValue = <1 literal>5<1 default>;\n" +
-            " <1 keyword>boolean <1 default>success =\n" +
-            "         atomicInteger.compareAndSet(\n" +
-            "               assumedValue, newValue);\n" +
-            " \n\n" +
-            "<2 comment>" +
-            " // Arithmetic functions on atomics\n" +
-            " // perform their computations in\n" +
-            " // an atomic fashion and return \n" +
-            " // the result.\n" +
-            " <2 keyword>int <2 default>result = atomicInteger\n" +
-            "       .incrementAndGet();\n";
+    return " <0 comment>// Construct the AtomicVariable, <br/>" +
+      " // assigning an initial value\n" +
+      " <0 keyword>final <0 default>AtomicInteger atomicInteger<br>" +
+      "   = <0 keyword>new <0 default>AtomicInteger(<0 literal>1<0 default>);\n" +
+      " \n" +
+      " <1 comment>// compareAndSet does an atomic<br/>" +
+      " //  \"check and set if\".<br/>" +
+      " // Value is only set<br/>" +
+      " //  if original value == assumed value\n" +
+      " <1 keyword>int <1 default>assumedValue = <1 literal>10<1 default>, newValue = <1 literal>5<1 default>;\n" +
+      " <1 keyword>boolean <1 default>success =\n" +
+      "         atomicInteger.compareAndSet(\n" +
+      "               assumedValue, newValue);\n" +
+      " \n\n" +
+      "<2 comment>" +
+      " // Arithmetic functions on atomics\n" +
+      " // perform their computations in\n" +
+      " // an atomic fashion and return \n" +
+      " // the result.\n" +
+      " <2 keyword>int <2 default>result = atomicInteger\n" +
+      "       .incrementAndGet();\n";
   }
 
   protected void initializeComponents() {

@@ -56,44 +56,45 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return  "<0 highlight>/** Challenge: Calculate the maximum\n" +
-            "  * element of array[14] using Fork/Join*/<0 default><br/>" +
-            " <0 keyword>public int <0 default>findMax(\n" +
-            "    <0 keyword>int[] <0 default>array, <0 keyword>int <0 default>nthreads) {\n" +
-            "   Solver solver = new Solver(array, 0,\n" +
-            "                            array.length);\n" +
-            "   ForkJoinPool pool \n" +
-            "      = new ForkJoinPool(nthreads);\n" +
-            "   pool.invoke(solver);\n" +
-            "   <4 keyword>int <4 default>result = solver.result;\n" +
-            "   return result;\n" +
-            " }\n" +
-            " <0 keyword>class Solver extends <0 default>RecursiveAction {\n" +
-            "   private int start, end, result;\n" +
-            "   private int array[]\n\n" +
-            "   private Solver(int[] array, int start,\n" +
-            "                     int end) {\n" +
-            "     this.array = array;\n" +
-            "     this.start = start;\n" +
-            "     this.end = end;\n" +
-            "   }\n" +
-            "   @Override\n" +
-            "   protected void compute() {\n" +
-            "     <2 keyword>if(<2 default>end - start == <2 literal>1<2 default>) {\n" +
-            "       result = array[start];\n" +
-            "     }\n" +
-            "     <3 keyword>else <3 default>{\n" +
-            "       int mid = (start + end)/2;\n" +
-            "       Solver solver1 = new Solver(array,\n" +
-            "                            start, mid);\n" +
-            "       Solver solver2 = new Solver(array,\n" +
-            "                            mid, end);\n" +
-            "       invokeAll(solver1, solver2);\n" +
-            "       result = Math.max(solver1.result,\n" +
-            "                         solver2.result);\n" +
-            "     }\n" +
-            "   }\n" +
-            " }\n";
+    return "<0 highlight>/** Challenge: Calculate the maximum\n" +
+      "  * element of array[14] using Fork/Join*/<0 default><br/>" +
+      "" +
+      " <0 keyword>public int <0 default>findMax(\n" +
+      "    <0 keyword>int[] <0 default>array, <0 keyword>int <0 default>nthreads) {\n" +
+      "   Solver solver = new Solver(array, 0,\n" +
+      "                            array.length);\n" +
+      "   ForkJoinPool pool \n" +
+      "      = new ForkJoinPool(nthreads);\n" +
+      "   pool.invoke(solver);\n" +
+      "   <4 keyword>int <4 default>result = solver.result;\n" +
+      "   return result;\n" +
+      " }\n" +
+      " <0 keyword>class Solver extends <0 default>RecursiveAction {\n" +
+      "   private int start, end, result;\n" +
+      "   private int array[]\n\n" +
+      "   private Solver(int[] array, int start,\n" +
+      "                     int end) {\n" +
+      "     this.array = array;\n" +
+      "     this.start = start;\n" +
+      "     this.end = end;\n" +
+      "   }\n" +
+      "   @Override\n" +
+      "   protected void compute() {\n" +
+      "     <2 keyword>if(<2 default>end - start == <2 literal>1<2 default>) {\n" +
+      "       result = array[start];\n" +
+      "     }\n" +
+      "     <3 keyword>else <3 default>{\n" +
+      "       int mid = (start + end)/2;\n" +
+      "       Solver solver1 = new Solver(array,\n" +
+      "                            start, mid);\n" +
+      "       Solver solver2 = new Solver(array,\n" +
+      "                            mid, end);\n" +
+      "       invokeAll(solver1, solver2);\n" +
+      "       result = Math.max(solver1.result,\n" +
+      "                         solver2.result);\n" +
+      "     }\n" +
+      "   }\n" +
+      " }\n";
   }
 
   @Override
@@ -125,6 +126,7 @@ public class ForkJoinConcurrentExample extends ConcurrentExample {
 
   /**
    * This returns the shift from the default snippet pane. Usually 0, but for F&J which needs more room, use a negative shift
+   *
    * @return the shift from the default snippet pane.
    */
   public int getVerticalOffsetShift() {

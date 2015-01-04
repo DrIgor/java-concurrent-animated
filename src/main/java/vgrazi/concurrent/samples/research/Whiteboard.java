@@ -32,8 +32,8 @@ public class Whiteboard {
     // check the state in a while block (a notification does not necessarily imply that the state is favorable)
     // the state is not favorable. wait until notification is received
     try {
-      synchronized(MUTEX) {
-        while(!checkSomeState()) {
+      synchronized (MUTEX) {
+        while (!checkSomeState()) {
           // state is not favorable - wait for notification
           MUTEX.wait();
           // notification has been received, recheck the state
@@ -41,8 +41,7 @@ public class Whiteboard {
       }
       // loop exited without exception, state is favorable.
       // continue processing
-    }
-    catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       // Interruption is trapped outside of the loop, so that interrupt will cause loop to exit
       Thread.currentThread().interrupt();
     }
@@ -51,7 +50,7 @@ public class Whiteboard {
     // do some work
     // state has been changed
     // notify all waiting threads to wake up
-    synchronized(MUTEX) {
+    synchronized (MUTEX) {
       MUTEX.notifyAll();
     }
 

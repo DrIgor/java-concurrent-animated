@@ -170,6 +170,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
       paused = true;
     }
   }
+
   public void resume() {
     synchronized (animationThreadMutex) {
       System.out.println("ConcurrentSpriteCanvas.resume");
@@ -355,6 +356,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   /**
    * Returns the x position to start drawing the label
+   *
    * @return the x position to start drawing the label
    */
   private int getLabelXPosition() {
@@ -363,6 +365,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   /**
    * Returns the y position to start drawing the label
+   *
    * @return the y position to start drawing the label
    */
   private int getLabelYPosition() {
@@ -467,7 +470,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   protected void drawReleased(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
     int y;
-    if(sprite.isOptimisticRead()) {
+    if (sprite.isOptimisticRead()) {
       g = (Graphics2D) g.create();
       g.setStroke(DOTTED_STROKE);
     }
@@ -539,6 +542,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
   /**
    * A pulling sprite is a "getter" thread that pulls the result from a Future
    * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   *
    * @return
    */
   protected void drawPulling(Graphics2D g, int xPos, int yPos, ConcurrentSprite sprite) {
@@ -671,9 +675,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
     int y = yPos;
     int y1 = yPos - ARROW_HEAD_LENGTH;
     int y2 = yPos + ARROW_HEAD_LENGTH;
-    if(sprite.isOptimisticRead()) {
+    if (sprite.isOptimisticRead()) {
       g = g.create();
-      ((Graphics2D)g).setStroke(DOTTED_STROKE);
+      ((Graphics2D) g).setStroke(DOTTED_STROKE);
     }
     // WORKING and RUNNABLE should render as an animated circular arrow
     if ((sprite.getType() != ConcurrentSprite.SpriteType.WORKING && sprite.getType() != ConcurrentSprite.SpriteType.SPECIAL && sprite.getType() != ConcurrentSprite.SpriteType.RUNNABLE) || !sprite.isAcquired() || xPos < RELEASE_BORDER_WORKING - 30) {
@@ -733,6 +737,7 @@ public class ConcurrentSpriteCanvas extends JPanel {
 
   /**
    * Renders a "working" (oval path) animation at the specified left border
+   *
    * @param xBorder the pixel count to the left border from the start of the canvas
    * @param sprite
    */
@@ -752,16 +757,14 @@ public class ConcurrentSpriteCanvas extends JPanel {
 //             . _________________V_________________  .
 //             (-W, 2R)                              (0,2R)
 
-    long time = System.currentTimeMillis() /30;
+    long time = System.currentTimeMillis() / 30;
     if (sprite.isOptimisticRead()) {
       g = (Graphics2D) g.create();
-      if(time % 3 == 0) {
+      if (time % 3 == 0) {
         g.setStroke(DOTTED_STROKE);
-      }
-      else if (time % 3 == 1){
+      } else if (time % 3 == 1) {
         g.setStroke(DOTTED_STROKE_1);
-      }
-      else {
+      } else {
         g.setStroke(DOTTED_STROKE_2);
       }
     } else {
@@ -776,13 +779,11 @@ public class ConcurrentSpriteCanvas extends JPanel {
       Graphics2D gtop = (Graphics2D) g1;
       if (sprite.isOptimisticRead()) {
         gtop = (Graphics2D) g.create();
-        if(time % 3 == 0) {
+        if (time % 3 == 0) {
           gtop.setStroke(DOTTED_STROKE_2);
-        }
-        else if (time % 3 == 1){
+        } else if (time % 3 == 1) {
           gtop.setStroke(DOTTED_STROKE_1);
-        }
-        else {
+        } else {
           gtop.setStroke(DOTTED_STROKE);
         }
       } else {
@@ -846,9 +847,9 @@ public class ConcurrentSpriteCanvas extends JPanel {
   private void renderOrbitingWorkingRunnable(int xBorder, int yPos, Graphics2D g, int w, int x, int y, int radius, ConcurrentSprite sprite) {
     if (sprite.getType() == ConcurrentSprite.SpriteType.SPECIAL) {
       g.setColor(ConcurrentExampleConstants.READ_WRITE_HEAD_COLOR);
-      g.fillRect(xBorder + w + 20 + x - radius * 2-1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
+      g.fillRect(xBorder + w + 20 + x - radius * 2 - 1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
     } else {
-      g.fillOval(xBorder + w + 20 + x - radius * 2-1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
+      g.fillOval(xBorder + w + 20 + x - radius * 2 - 1, yPos - radius / 2 - 2 + y, radius * 2 + 2, radius * 2 + 2);
     }
   }
 

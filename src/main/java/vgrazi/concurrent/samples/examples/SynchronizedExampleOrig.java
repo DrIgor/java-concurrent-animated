@@ -16,27 +16,27 @@ public class SynchronizedExampleOrig extends ConcurrentExample {
   MUTEX helps control the animations. It is the lock held by the sprite, to prevent it from exiting the synchronized block.
 
  Lock
-  ¥	synchronize on LOCK,
-  ¥	wait on MUTEX
+  ï¿½	synchronize on LOCK,
+  ï¿½	wait on MUTEX
 
  Unlock
-  ¥	Release MUTEX (next blocked thread will Lock)
+  ï¿½	Release MUTEX (next blocked thread will Lock)
 
  Wait
-  ¥	There is a ÒRunnableÓ thread holding the lock, waiting on MUTEX.
-  ¥	Call MUTEX.notify to transit the Runnable thread holding the lock to WAITING
-  ¥	and LOCK.wait to allow the next thread in.
+  ï¿½	There is a ï¿½Runnableï¿½ thread holding the lock, waiting on MUTEX.
+  ï¿½	Call MUTEX.notify to transit the Runnable thread holding the lock to WAITING
+  ï¿½	and LOCK.wait to allow the next thread in.
 
  Notify
-  ¥	Notify LOCK to get the waiting thread to wake up.
-  ¥	The notifying thread should set all waiting thread colors to BLOCKED then the running thread should change its color to RUNNABLE
-  ¥	if there is another thread holding the lock
+  ï¿½	Notify LOCK to get the waiting thread to wake up.
+  ï¿½	The notifying thread should set all waiting thread colors to BLOCKED then the running thread should change its color to RUNNABLE
+  ï¿½	if there is another thread holding the lock
       o	transit to the blocked state
-  ¥	else
+  ï¿½	else
       o	transit a waiting thread to runnable and let it exit the monolith
 
  NotifyAll
-  ¥	Same as notify except call LOCK.notifyAll()
+  ï¿½	Same as notify except call LOCK.notifyAll()
 */
 
   /**
@@ -162,12 +162,12 @@ public class SynchronizedExampleOrig extends ConcurrentExample {
     if (!waitingSpriteList.isEmpty()) {
 
       System.out.println("SynchronizedExampleOrig.notifyMethod. ");
-      if (lockedSpriteList.size() - waitingSpriteList.size() <2) {
+      if (lockedSpriteList.size() - waitingSpriteList.size() < 2) {
         ConcurrentSprite sprite = waitingSpriteList.remove(0);
         //        lockedSpriteList.remove(sprite);
         synchronized (LOCK) {
           sprite.setThreadState(Thread.State.RUNNABLE);
-          synchronized (MUTEX){
+          synchronized (MUTEX) {
             try {
               MUTEX.wait();
             } catch (InterruptedException e) {
@@ -269,8 +269,7 @@ public class SynchronizedExampleOrig extends ConcurrentExample {
             setNotifyButtonState();
           } catch (InterruptedException e1) {
             Thread.currentThread().interrupt();
-          }
-          finally {
+          } finally {
             waitingSpriteList.remove(sprite);
           }
         }

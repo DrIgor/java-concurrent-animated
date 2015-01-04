@@ -22,6 +22,7 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
   private FontMetrics fontMetrics;
   private List<ForkJoinSprite> sprites = new ArrayList<ForkJoinSprite>();
   private final Map<Integer, Integer> levelMap = new ConcurrentHashMap<Integer, Integer>();
+
   public ForkJoinCanvas(final ConcurrentExample concurrentExample, final String labelText) {
     super(concurrentExample, labelText);
     setFont(ConcurrentExampleConstants.TEXT_SPRITE_FONT);
@@ -44,29 +45,28 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
 
   private void drawForkJoinSprites(Graphics2D g) {
     int activeThreadCount = 0;
-    for(int i = 0, spritesSize = sprites.size(); i < spritesSize; i++) {
+    for (int i = 0, spritesSize = sprites.size(); i < spritesSize; i++) {
       ForkJoinSprite sprite = sprites.get(i);
-      if(sprite == null) {
-          continue;
+      if (sprite == null) {
+        continue;
       }
-      if(!sprite.isComplete()) {
+      if (!sprite.isComplete()) {
         g.setColor(ConcurrentExampleConstants.ACQUIRING_COLOR);
-      }
-      else {
+      } else {
         g.setColor(ConcurrentExampleConstants.FORK_JOIN_COMPLETE_COLOR);
       }
       final int level = sprite.getLevel();
       // get the next vertical position for this level
       Integer levelIndex = sprite.getLevelIndex();
-      if(levelIndex == -1) {
+      if (levelIndex == -1) {
         levelIndex = levelMap.get(level);
-        if(levelIndex == null) {
+        if (levelIndex == null) {
           levelIndex = 0;
         }
         sprite.setLevelIndex(levelIndex);
       }
-      int yPos = (levelIndex + 1)*spriteHeight ;
-      int left = leftBorder + level*spriteWidth;
+      int yPos = (levelIndex + 1) * spriteHeight;
+      int left = leftBorder + level * spriteWidth;
       g.fill3DRect(left, yPos, spriteWidth, spriteHeight, true);
       // center the text
       g.setColor(ConcurrentExampleConstants.TEXT_SPRITE_COLOR);
@@ -75,34 +75,34 @@ public class ForkJoinCanvas extends ConcurrentSpriteCanvas {
       int textWidth;
       int xPos;
       String text;
-      if(sprite.isComplete()) {
+      if (sprite.isComplete()) {
         // render the solution
         text = sprite.getSolution();
         textWidth = fontMetrics.stringWidth(text);
-        xPos = (spriteWidth - textWidth)/2 + left;
+        xPos = (spriteWidth - textWidth) / 2 + left;
 
-        g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getHeight() -3);
+        g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getHeight() - 3);
       }
       text = String.format("(%d, %d)", sprite.getStart(), sprite.getEnd());
       textWidth = fontMetrics.stringWidth(text);
-      xPos = (spriteWidth - textWidth)/2 + left;
+      xPos = (spriteWidth - textWidth) / 2 + left;
       g.drawString(text, xPos, yPos + spriteHeight - fontMetrics.getDescent() - 2);
 
       // render the worker thread animation
-      if(sprite.getForkJoinThread() != null) {
+      if (sprite.getForkJoinThread() != null) {
         g.setColor(sprite.getForkJoinThread().getThreadColor());
 //        g.drawLine(left + 5, yPos + 5, left + spriteWidth - 10, yPos + 5);
-        renderWorkingAnimation(g, left-8, yPos + 5, sprite.getCircleLocation(), sprite);
+        renderWorkingAnimation(g, left - 8, yPos + 5, sprite.getCircleLocation(), sprite);
         sprite.bumpCircleLocation();
         activeThreadCount++;
       }
       levelMap.put(level, levelIndex + 1);
     }
-    if(activeThreadCount != 0 && lastActiveCount != activeThreadCount) {
+    if (activeThreadCount != 0 && lastActiveCount != activeThreadCount) {
       lastActiveCount = activeThreadCount;
-        if(activeThreadCount > maxActiveThreadCount) {
-            maxActiveThreadCount = activeThreadCount;
-        }
+      if (activeThreadCount > maxActiveThreadCount) {
+        maxActiveThreadCount = activeThreadCount;
+      }
       getConcurrentExample().message1(String.format("active threads:%d\tmax active threads:%d", activeThreadCount, maxActiveThreadCount), ConcurrentExampleConstants.MESSAGE_COLOR);
 //      System.out.printf("ForkJoinCanvas.drawForkJoinSprites active thread count:%d%n", activeThreadCount);
     }

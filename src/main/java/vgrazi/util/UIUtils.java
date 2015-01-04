@@ -30,7 +30,7 @@ public class UIUtils {
   }
 
   public static Frame getParentFrame(Component c) {
-    while (! (c instanceof Frame) && c!= null) {
+    while (!(c instanceof Frame) && c != null) {
       c = c.getParent();
     }
     return ((Frame) c);
@@ -39,7 +39,7 @@ public class UIUtils {
   private static Dimension getScreenSize() {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int screenWidth = screenSize.width;
-    if(screenWidth > 1024) {
+    if (screenWidth > 1024) {
       screenWidth = 1024;
     }
     int screenHeight = screenSize.height;
@@ -63,17 +63,21 @@ public class UIUtils {
 
   /**
    * If less than 0, returns 0. If greater than 1 returns 1, else returns the value
+   *
    * @param percent the percent value to coerce
    * @return the value between 0 and 1
    */
   public static float coerceZeroToOne(float percent) {
-    if(percent <= 0) return 0; else if (percent > 1) return 1; else return percent;
+    if (percent <= 0) return 0;
+    else if (percent > 1) return 1;
+    else return percent;
   }
 
   /**
    * Sets the size as a percentage of the screen width and height, then centers it
-   * @param frame the frame to center
-   * @param widthPercent the percent of the screen width to size it
+   *
+   * @param frame         the frame to center
+   * @param widthPercent  the percent of the screen width to size it
    * @param heightPercent the percent of the screen height to size it
    */
   public static void center(Frame frame, float widthPercent, float heightPercent) {
@@ -83,8 +87,8 @@ public class UIUtils {
     Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     int width = (int) (widthPercent * screenSize.width);
     int height = (int) (heightPercent * screenSize.height);
-    int x = (screenSize.width - width)/2;
-    int y = (screenSize.height - height)/2;
+    int x = (screenSize.width - width) / 2;
+    int y = (screenSize.height - height) / 2;
     frame.setBounds(x, y, width, height);
   }
 }

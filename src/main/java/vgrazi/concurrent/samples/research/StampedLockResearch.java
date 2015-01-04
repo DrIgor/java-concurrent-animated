@@ -13,7 +13,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  * WriteLock is obtained from long stamp = lock.writeLock() and released from lock.unlockWrite(stamp)
  * Optimistic ReadLock is obtained from long stamp = lock.tryOptimisticRead(). Copy results to local variables, then call lock.validate(stamp)
  * If not valid, obtain a true read lock, then recopy the variables locally.
- *
  */
 public class StampedLockResearch {
   private StampedLock lock = new StampedLock();
@@ -87,8 +86,7 @@ public class StampedLockResearch {
           System.out.println(sequence + "> Real read Lock obtained " + stamp);
           lock.unlockRead(stamp);
           System.out.println(sequence + "< Real read Lock released: " + stamp);
-        }
-        else {
+        } else {
           System.out.println(sequence + "< Read Lock validated: " + stamp);
         }
       }

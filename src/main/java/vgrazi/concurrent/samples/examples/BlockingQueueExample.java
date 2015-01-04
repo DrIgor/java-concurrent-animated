@@ -13,6 +13,7 @@ import java.util.concurrent.*;
  * @user vgrazi.
  * Time: 12:26:11 AM
  */
+
 /**
  * A Semaphore is created with an initial number of permits. Each acquire decrements the count of available permits.
  * Each release increments the number of available permits.
@@ -34,7 +35,7 @@ public class BlockingQueueExample extends ConcurrentExample {
   private final ScheduledExecutorService scheduledExecutor = Executors.newScheduledThreadPool(10);
   private final Executor executor = Executors.newCachedThreadPool();
 
-    public String getTitle() {
+  public String getTitle() {
     return "BlockingQueue";
   }
 
@@ -54,34 +55,34 @@ public class BlockingQueueExample extends ConcurrentExample {
   protected void initializeComponents() {
     reset();
     if (!initialized) {
-        initializePut();
-        initializeOffer();
+      initializePut();
+      initializeOffer();
 
       addButtonSpacer();
-        initializeButton(takeButton, new Runnable() {
+      initializeButton(takeButton, new Runnable() {
         public void run() {
-            clearMessages();
+          clearMessages();
           int count = getThreadCount(threadCountField);
           delayAfterClick();
           for (int i = 0; i < count; i++) {
-              executor.execute(new Runnable() {
-                  public void run() {
-                      take();
-                  }
-              });
+            executor.execute(new Runnable() {
+              public void run() {
+                take();
+              }
+            });
           }
         }
       });
-        initializeButton(pollButton, new Runnable() {
-          public void run() {
-              clearMessages();
-            int count = getThreadCount(threadCountField);
-            for (int i = 0; i < count; i++) {
-              poll();
-            }
-            delayAfterClick();
+      initializeButton(pollButton, new Runnable() {
+        public void run() {
+          clearMessages();
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            poll();
           }
-        });
+          delayAfterClick();
+        }
+      });
 
 
       Dimension size = new Dimension(100, putButton.getPreferredSize().height);
@@ -96,48 +97,48 @@ public class BlockingQueueExample extends ConcurrentExample {
 
   }
 
-    protected void delayAfterClick() {
-        scheduledExecutor.schedule(new Runnable() {
+  protected void delayAfterClick() {
+    scheduledExecutor.schedule(new Runnable() {
+      public void run() {
+        afterClick();
+
+      }
+    }, 100, TimeUnit.MILLISECONDS);
+  }
+
+  protected void initializeOffer() {
+    initializeButton(offerButton, new Runnable() {
+      public void run() {
+        clearMessages();
+        int count = getThreadCount(threadCountField);
+        for (int i = 0; i < count; i++) {
+          threadCountExecutor.execute(new Runnable() {
             public void run() {
-                afterClick();
-
+              offer();
             }
-        }, 100, TimeUnit.MILLISECONDS);
-    }
-
-    protected void initializeOffer() {
-        initializeButton(offerButton, new Runnable() {
-        public void run() {
-            clearMessages();
-          int count = getThreadCount(threadCountField);
-          for (int i = 0; i < count; i++) {
-            threadCountExecutor.execute(new Runnable() {
-                public void run() {
-                    offer();
-                }
-            });
-          }
-          delayAfterClick();
+          });
         }
-      });
-    }
+        delayAfterClick();
+      }
+    });
+  }
 
-    protected void initializePut() {
-        initializeButton(putButton, new Runnable() {
-          public void run() {
-              clearMessages();
+  protected void initializePut() {
+    initializeButton(putButton, new Runnable() {
+      public void run() {
+        clearMessages();
 
-            setAnimationCanvasVisible(true);
-            int count = getThreadCount(threadCountField);
-            for (int i = 0; i < count; i++) {
-              put();
-            }
-            delayAfterClick();
-          }
-        });
-    }
+        setAnimationCanvasVisible(true);
+        int count = getThreadCount(threadCountField);
+        for (int i = 0; i < count; i++) {
+          put();
+        }
+        delayAfterClick();
+      }
+    });
+  }
 
-    protected void put() {
+  protected void put() {
     try {
 //      message1("Waiting for acquire...", ConcurrentExampleConstants.WARNING_MESSAGE_COLOR);
       setState(1);
@@ -150,9 +151,9 @@ public class BlockingQueueExample extends ConcurrentExample {
     }
   }
 
-    /**
-     * Hook method for subclasses
-     */
+  /**
+   * Hook method for subclasses
+   */
   protected void afterClick() {
   }
 
@@ -165,8 +166,7 @@ public class BlockingQueueExample extends ConcurrentExample {
     if (sprite != null) {
       sprite.setReleased();
 //      message2("Removed", ConcurrentExampleConstants.MESSAGE_COLOR);
-    }
-    else {
+    } else {
       message1("Poll returned null", ConcurrentExampleConstants.MESSAGE_COLOR);
     }
   }
@@ -228,69 +228,69 @@ public class BlockingQueueExample extends ConcurrentExample {
     resetThreadCountField(threadCountField);
     setQueue(createQueue());
     index = 1;
-      clearMessages();
-      setState(0);
+    clearMessages();
+    setState(0);
   }
 
-    protected String getSnippet() {
+  protected String getSnippet() {
 
     String snippet;
-      snippet = "<html><PRE>" +
-              "<font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor - pass in the upper bound</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> BlockingQueue queue <br/>" +
-              "          = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ArrayBlockingQueue<ConcurrentSprite>(4); \n" +
-              "   \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to put will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until there is room in the buffer</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\">Thread putThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread() { \n" +
-              "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
-              "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
-              "         queue.put(); \n" +
-              "       } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(InterruptedException e) { }\n" +
-              //      "          Thread.currentThread().interrupt(); \n" +
-              //      "        } \n" +
-              //      "      } \n" +
-              //      "    }); \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// offer is like put except that it times out</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// after the specified timeout period</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">Thread offerThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Thread() { \n" +
-              "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run() { \n" +
-              "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
-              "         queue.offer(someObject, 1L,<br/>" +
-              "                      TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
-              "       }</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { }\n" +
-              //      "          Thread.currentThread().interrupt(); \n" +
-              //      "        } \n" +
-              //      "      } \n" +
-              //      "    });" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to poll will return </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// null if there is nothing on the queue</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Thread pollThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread() { \n" +
-              "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
-              "       queue.poll(); \n" +
-              "     } \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to take will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until the there is something to take</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
-              "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\">Thread takeThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> Thread() { \n" +
-              "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> run() { \n" +
-              "       queue.take(); \n" +
-              "     } \n" +
-              //       "    }); \n" +
-              "</FONT></PRE></html>";
+    snippet = "<html><PRE>" +
+      "<font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Constructor - pass in the upper bound</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>final</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> BlockingQueue queue <br/>" +
+      "          = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ArrayBlockingQueue<ConcurrentSprite>(4); \n" +
+      "   \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to put will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until there is room in the buffer</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\">Thread putThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> Thread() { \n" +
+      "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> run() { \n" +
+      "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> { \n" +
+      "         queue.put(); \n" +
+      "       } </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\">(InterruptedException e) { }\n" +
+      //      "          Thread.currentThread().interrupt(); \n" +
+      //      "        } \n" +
+      //      "      } \n" +
+      //      "    }); \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// offer is like put except that it times out</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// after the specified timeout period</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\">Thread offerThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> Thread() { \n" +
+      "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> run() { \n" +
+      "       </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>try</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> { \n" +
+      "         queue.offer(someObject, 1L,<br/>" +
+      "                      TimeUnit.SECONDS</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">); \n" +
+      "       }</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000080>\"><B>catch</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\">(InterruptedException e) { }\n" +
+      //      "          Thread.currentThread().interrupt(); \n" +
+      //      "        } \n" +
+      //      "      } \n" +
+      //      "    });" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to poll will return </I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// null if there is nothing on the queue</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\">Thread pollThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> Thread() { \n" +
+      "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> run() { \n" +
+      "       queue.poll(); \n" +
+      "     } \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// Threads attempting to take will block</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\"><I>// until the there is something to take</I></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"#000000\"> \n" +
+      "   </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\">Thread takeThread = </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> Thread() { \n" +
+      "     </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>public</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000080>\"><B>void</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state4:#000000>\"> run() { \n" +
+      "       queue.take(); \n" +
+      "     } \n" +
+      //       "    }); \n" +
+      "</FONT></PRE></html>";
 
     return snippet;
   }
 
-    protected BlockingQueue<ConcurrentSprite> createQueue() {
-        return new ArrayBlockingQueue<ConcurrentSprite>(4);
-    }
-    
-    public BlockingQueue<ConcurrentSprite> getQueue() {
-        return queue;
-    }
+  protected BlockingQueue<ConcurrentSprite> createQueue() {
+    return new ArrayBlockingQueue<ConcurrentSprite>(4);
+  }
 
-    public void setQueue(BlockingQueue<ConcurrentSprite> queue) {
-        this.queue = queue;
-    }
+  public BlockingQueue<ConcurrentSprite> getQueue() {
+    return queue;
+  }
+
+  public void setQueue(BlockingQueue<ConcurrentSprite> queue) {
+    this.queue = queue;
+  }
 }

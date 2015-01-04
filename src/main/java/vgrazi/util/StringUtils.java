@@ -7,6 +7,7 @@ package vgrazi.util;
 public class StringUtils {
   /**
    * Returns true if the value is null or blank, false otherwise
+   *
    * @param value the value to test
    * @return true if the value is null or blank, false otherwise
    */

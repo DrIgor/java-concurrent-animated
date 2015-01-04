@@ -2,8 +2,8 @@ package vgrazi.concurrent.samples;
 
 /**
  * Created by Victor Grazi.
-* Date: Oct 20, 2007 - 8:16:50 PM
-*/
+ * Date: Oct 20, 2007 - 8:16:50 PM
+ */
 public enum ExampleType {
 
   /**

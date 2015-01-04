@@ -23,21 +23,21 @@ import java.io.IOException;
 
 
 /**
-todo
-�	I will try to expand the explanations on the descriptive slides, and also will add a mouseover to explain what is happening, especially on each executor, and explain fair and unfair<br><br>
-
-Walking through the slides using page down is good, but seems to skip at least one of the functions in comparison to the drop-down menu. For example, using page down to navigate to 'sempahore' then again to 'Future', but can't get to 'semaphore (fair)' without using the menu. Also, explanation of what 'fair' does in comparison would be good.<br>
-�	Each screen use the underlying components to control the animations. Semaphore fair and unfair for some reason have been acting the same in JDK1.6. This seems to be a JDK issue. I removed fair to avoid confusion. I put it back now. (Fair guarantees that waiting threads are released in the order they arrived. Unfair doesn�t)<br><br>
-
-Scheduled executors are covered in the slide, but not in the animations?<br>
-�	No reason, just didn�t get to that one<br><br>
-
-Not sure there's enough information for 'condition' �<br>
-�	This was hard to visualize, if someone can suggest a better approach please let me know. The way it works is that a lock is created (see the code snippet in the animation) and used to create one or more conditions. Then, threads that wish to be notified when any of those conditions occur will call await on the condition, and will sit there blocking, until another thread calls signal() or signalAll() on that condition. If signal() is called, one thread will be notified. If signalAll() is called, all threads will be notified.<br><br>
-
-Countdownlatch, I'm not sure whether it's obvious from the slides that once the countdown has been reached, all further threads execute immediately.<br>
-�	I can add some more explanation to the power point �Once the countdown has been completed, all further calls to await will pass through unblocked<br><br>
-*/
+ * todo
+ * �	I will try to expand the explanations on the descriptive slides, and also will add a mouseover to explain what is happening, especially on each executor, and explain fair and unfair<br><br>
+ * <p/>
+ * Walking through the slides using page down is good, but seems to skip at least one of the functions in comparison to the drop-down menu. For example, using page down to navigate to 'sempahore' then again to 'Future', but can't get to 'semaphore (fair)' without using the menu. Also, explanation of what 'fair' does in comparison would be good.<br>
+ * �	Each screen use the underlying components to control the animations. Semaphore fair and unfair for some reason have been acting the same in JDK1.6. This seems to be a JDK issue. I removed fair to avoid confusion. I put it back now. (Fair guarantees that waiting threads are released in the order they arrived. Unfair doesn�t)<br><br>
+ * <p/>
+ * Scheduled executors are covered in the slide, but not in the animations?<br>
+ * �	No reason, just didn�t get to that one<br><br>
+ * <p/>
+ * Not sure there's enough information for 'condition' �<br>
+ * �	This was hard to visualize, if someone can suggest a better approach please let me know. The way it works is that a lock is created (see the code snippet in the animation) and used to create one or more conditions. Then, threads that wish to be notified when any of those conditions occur will call await on the condition, and will sit there blocking, until another thread calls signal() or signalAll() on that condition. If signal() is called, one thread will be notified. If signalAll() is called, all threads will be notified.<br><br>
+ * <p/>
+ * Countdownlatch, I'm not sure whether it's obvious from the slides that once the countdown has been reached, all further threads execute immediately.<br>
+ * �	I can add some more explanation to the power point �Once the countdown has been completed, all further calls to await will pass through unblocked<br><br>
+ */
 public class ConcurrentExampleLauncher {
   private final JFrame frame = new JFrame();
   private final Container container = new JPanel(new BorderLayout());
@@ -55,9 +55,9 @@ public class ConcurrentExampleLauncher {
         ConcurrentSlideShow.nextSlide();
       } else if (e.getKeyCode() == KeyEvent.VK_PAGE_UP || e.getKeyCode() == KeyEvent.VK_UP) {
         ConcurrentSlideShow.previousSlide();
-      } else if(e.getKeyCode() == KeyEvent.VK_H && e.isControlDown()) {
+      } else if (e.getKeyCode() == KeyEvent.VK_H && e.isControlDown()) {
         ButtonMenu buttonMenu = MenuBuilder.getButtonMenu();
-        if(buttonMenu != null) {
+        if (buttonMenu != null) {
           buttonMenu.setVisible(!buttonMenu.isVisible());
         }
       }
@@ -103,6 +103,7 @@ public class ConcurrentExampleLauncher {
 
   /**
    * If this is MS Windows, adds a menu bar
+   *
    * @param menuBar
    */
   private void configureMSWindowsSpecificStuff(MenuBar menuBar) {
@@ -157,8 +158,7 @@ public class ConcurrentExampleLauncher {
         public void mouseClicked(MouseEvent e) {
           if ((e.getModifiersEx() & MouseEvent.ADJUSTMENT_EVENT_MASK) != 0) {
             ConcurrentSlideShow.previousSlide();
-          }
-          else {
+          } else {
             ConcurrentSlideShow.nextSlide();
           }
         }
@@ -195,6 +195,7 @@ public class ConcurrentExampleLauncher {
 
   /**
    * Returns the preferred image size, which is the largest size that will fit into the existing screen, retaining the image proportions
+   *
    * @return the preferred image size, which is the largest size that will fit into the existing screen, retaining the image proportions
    */
   private Dimension getImageSize() {
@@ -210,7 +211,7 @@ public class ConcurrentExampleLauncher {
       container.setLayout(new BorderLayout());
       container.add(examplePanel);
       examplePanel.launchExample();
-      if(examplePanel.getSlideNumber() != -1) {
+      if (examplePanel.getSlideNumber() != -1) {
         ConcurrentSlideShow.setSlideShowIndex(examplePanel.getSlideNumber());
       }
       int menuIndex = examplePanel.getMenuIndex();

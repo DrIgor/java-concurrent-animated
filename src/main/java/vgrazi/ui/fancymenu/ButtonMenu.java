@@ -49,7 +49,7 @@ public class ButtonMenu extends JPanel {
     ButtonMenuLayout layout = new ButtonMenuLayout();
     contentPane.setLayout(layout);
     final ButtonMenu menu = new ButtonMenu(2, 5, 5, "Red", "Orange", "Yellow", "this is a test of the width functionality",
-            "<html><body>this is a test of the height functionality</body></html>", "Green", "Blue", "Indigo", "Violet");
+      "<html><body>this is a test of the height functionality</body></html>", "Green", "Blue", "Indigo", "Violet");
     contentPane.add(menu);
     contentPane.add(new JPanel());
 
@@ -139,6 +139,7 @@ public class ButtonMenu extends JPanel {
 
   /**
    * Sets all of the ActionListeners
+   *
    * @param actionListeners
    */
   public void setActionListeners(List<ActionListener> actionListeners) {
@@ -149,7 +150,8 @@ public class ButtonMenu extends JPanel {
 
   /**
    * Sets the supplied action listener to the button at the specified index
-   * @param index the index of the button to add the ActionListener
+   *
+   * @param i the index of the button to add the ActionListener
    * @param actionListener the ActionListener to assign to the ith button
    */
   public void setActionListener(int i, ActionListener actionListener) {
@@ -186,7 +188,7 @@ public class ButtonMenu extends JPanel {
         actionListener.actionPerformed(null);
       }
     }
-    selectedIndex =i;
+    selectedIndex = i;
   }
 
   public void setSelected(int i) {

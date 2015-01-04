@@ -56,13 +56,14 @@ public class ConditionExample extends ConcurrentExample {
     super(title, frame, ExampleType.WORKING, 555, false, slideNumber);
     reset();
   }
-    protected void createCanvas() {
-        setCanvas(new BasicCanvas(this, getTitle()));
-    }
+
+  protected void createCanvas() {
+    setCanvas(new BasicCanvas(this, getTitle()));
+  }
 
 
-    protected void initializeComponents() {
-    if(!initialized) {
+  protected void initializeComponents() {
+    if (!initialized) {
       initializeButton(await1Button, new Runnable() {
         public void run() {
           try {
@@ -74,11 +75,9 @@ public class ConditionExample extends ConcurrentExample {
             condition1.await();
 //            setState(2);
             sprite.setReleased();
-          }
-          catch (InterruptedException e) {
+          } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-          }
-          finally {
+          } finally {
             lock.unlock();
           }
         }
@@ -94,11 +93,9 @@ public class ConditionExample extends ConcurrentExample {
             condition2.await();
 //            setState(2);
             sprite.setReleased();
-          }
-          catch (InterruptedException e) {
+          } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-          }
-          finally {
+          } finally {
             lock.unlock();
           }
         }
@@ -114,11 +111,9 @@ public class ConditionExample extends ConcurrentExample {
             condition3.await();
 //            setState(2);
             sprite.setReleased();
-          }
-          catch (InterruptedException e) {
+          } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
-          }
-          finally {
+          } finally {
             lock.unlock();
           }
         }
@@ -250,41 +245,42 @@ public class ConditionExample extends ConcurrentExample {
   protected String getSnippet() {
     return getBaseSnippet().replaceAll("\\[i\\]", String.valueOf(conditionIndex));
   }
+
   protected String getBaseSnippet() {
 
     return "<html><PRE><font 'style=\"font-family:monospaced;\" COLOR=\"" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + "\">" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition1 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition2 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
-       " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition3 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
-       "\n" +
+      " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Lock lock = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>new</B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> ReentrantLock(); \n" +
+      " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition1 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
+      " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition2 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
+      " </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"><B>Condition condition3 = </B></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"></FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state0:#000000>\"> lock.newCondition(); \n" +
+      "\n" +
 //       "    </FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\">\n" +
 //       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-        "" +
-            //       "    </FONT>" +
-       "<font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\">" +
-       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       " lock.lock();\n" +
-       " try {\n" +
-       "   condition[i].await(); \n" +
-       " } catch(InterruptedException e) {...}\n" +
-       "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
-       " finally {\n" +
-       "   lock.unlock();\n" +
-       " } \n" +
-       "</FONT>" +
-            "\n" +
-       "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
-       " lock.lock();\n" +
-       " condition[i].signal();\n" +
-       " lock.unlock();\n" +
-       "</FONT>" +
-       "\n" +
-            "<font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
-       " lock.lock();\n" +
-       " condition[i].signalAll();\n" +
-       " lock.unlock();\n" +
-       "</FONT>" +
-       "</PRE></html>";
+      "" +
+      //       "    </FONT>" +
+      "<font 'style=\"font-family:monospaced;\" COLOR=\"<state1:" + ConcurrentExampleConstants.HTML_DISABLED_COLOR + ">\">" +
+      "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+      " lock.lock();\n" +
+      " try {\n" +
+      "   condition[i].await(); \n" +
+      " } catch(InterruptedException e) {...}\n" +
+      "</FONT><font 'style=\"font-family:monospaced;\" COLOR=\"<state1:#000000>\"> \n" +
+      " finally {\n" +
+      "   lock.unlock();\n" +
+      " } \n" +
+      "</FONT>" +
+      "\n" +
+      "<font 'style=\"font-family:monospaced;\" COLOR=\"<state2:#000000>\"> \n" +
+      " lock.lock();\n" +
+      " condition[i].signal();\n" +
+      " lock.unlock();\n" +
+      "</FONT>" +
+      "\n" +
+      "<font 'style=\"font-family:monospaced;\" COLOR=\"<state3:#000000>\"> \n" +
+      " lock.lock();\n" +
+      " condition[i].signalAll();\n" +
+      " lock.unlock();\n" +
+      "</FONT>" +
+      "</PRE></html>";
   }
 }

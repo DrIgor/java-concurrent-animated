@@ -36,7 +36,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
     Component[] components = target.getComponents();
     JScrollPane snippetPane = null;
     List<JButton> buttons = new ArrayList<JButton>();
-        List<Component> others = new ArrayList<Component>();
+    List<Component> others = new ArrayList<Component>();
     List<MessageLabel> messageLabels = new ArrayList<MessageLabel>();
     ConcurrentSpriteCanvas canvas = null;
 
@@ -67,7 +67,7 @@ public class ConcurrentExampleLayout extends FlowLayout {
     for (int i = 0; i < buttons.size(); i++) {
       // if none of the buttons have focus, give focus to the first
       JButton button = buttons.get(i);
-      if(button instanceof SpacerButton) {
+      if (button instanceof SpacerButton) {
         xPos = INSET;
         yPos += height + 5;
         continue;
@@ -101,10 +101,9 @@ public class ConcurrentExampleLayout extends FlowLayout {
 
     int canvasPreferredWidth = canvas.getPreferredSize().width;
     int snippetWidth;
-    if(canvasPreferredWidth + snippetMinimumWidth > targetWidth) {
+    if (canvasPreferredWidth + snippetMinimumWidth > targetWidth) {
       snippetWidth = snippetMinimumWidth;
-    }
-    else {
+    } else {
       snippetWidth = targetWidth - canvasPreferredWidth;
     }
 

@@ -104,13 +104,14 @@ public abstract class ConcurrentExample extends JPanel {
 
   //    this(ExampleType.BLOCKING);
   //  }
+
   /**
-   * @param title              the title to display in the title bar
-   * @param container          the container to contain the animation
-   * @param exampleType        the type of animation
+   * @param title               the title to display in the title bar
+   * @param container           the container to contain the animation
+   * @param exampleType         the type of animation
    * @param snippetMinimumWidth the horizontal position to start the snippet frame
-   * @param fair               true
-   * @param slideNumber        when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
+   * @param fair                true
+   * @param slideNumber         when configured as a slide show, this indicates the slide number. -1 for exclude from slide show - will still show in menu bar
    */
   public ConcurrentExample(String title, final Container container, ExampleType exampleType, int snippetMinimumWidth, boolean fair, int slideNumber) {
     this.title = title;
@@ -260,6 +261,7 @@ public abstract class ConcurrentExample extends JPanel {
   /**
    * A pulling sprite is a "getter" thread that pulls the result from a Future
    * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   *
    * @param type
    * @return
    */
@@ -285,6 +287,7 @@ public abstract class ConcurrentExample extends JPanel {
   /**
    * A pulling sprite is a "getter" thread that pulls the result from a Future
    * It is drawn to the right of the mutex and waits for the associated sprite to be released
+   *
    * @param index
    * @param type
    * @return
@@ -334,6 +337,7 @@ public abstract class ConcurrentExample extends JPanel {
    * In getSnippetText, return the string, with /n and proper indentation as desired to indicate line feed and spaces
    * then insert <d class> for each state, where d is the state and class is the class: default, keyword, literal, comment, unselected.
    * For example <3 literal> means display this as a literal (light blue) when the state==3
+   *
    * @return the snippet text
    */
   protected String getSnippetText() {
@@ -347,19 +351,19 @@ public abstract class ConcurrentExample extends JPanel {
    */
   protected String getSnippet() {
     final String snippet;
-    snippet="<html><head><style type=\"text/css\"> \n" +
-            ".default { font-weight: bold}\n" +
-            ".keyword { color: rgb(0,0,200); font-weight: bold; }\n" +
-            ".highlight { color: rgb(0,0,0); background-color: yellow; font-weight: normal; }\n" +
-            ".literal { color: rgb(0,0,255); font-weight: bold}\n" +
-            ".comment { color: rgb(128,128,128);}\n" +
-            ".unselected { color: rgb(128,128,128); }\n" +
-            "</style> \n" +
-            "</head>\n" +
-            "<BODY BGCOLOR=\"#ffffff\">\n" +
-            "<pre>\n" + getSnippetText() +
-            "</pre></body>\n" +
-            "</html>";
+    snippet = "<html><head><style type=\"text/css\"> \n" +
+      ".default { font-weight: bold}\n" +
+      ".keyword { color: rgb(0,0,200); font-weight: bold; }\n" +
+      ".highlight { color: rgb(0,0,0); background-color: yellow; font-weight: normal; }\n" +
+      ".literal { color: rgb(0,0,255); font-weight: bold}\n" +
+      ".comment { color: rgb(128,128,128);}\n" +
+      ".unselected { color: rgb(128,128,128); }\n" +
+      "</style> \n" +
+      "</head>\n" +
+      "<BODY BGCOLOR=\"#ffffff\">\n" +
+      "<pre>\n" + getSnippetText() +
+      "</pre></body>\n" +
+      "</html>";
     return snippet;
   }
 
@@ -382,8 +386,7 @@ public abstract class ConcurrentExample extends JPanel {
     }
     if (getExampleType() != ExampleType.ONE_USE) {
       return acquiring.incrementAndGet();
-    }
-    else {
+    } else {
       return 1;
     }
   }
@@ -474,6 +477,7 @@ public abstract class ConcurrentExample extends JPanel {
 
   /**
    * Returns a default thread count field
+   *
    * @return a default thread count field
    */
   protected JTextField createThreadCountField() {
@@ -487,6 +491,7 @@ public abstract class ConcurrentExample extends JPanel {
    * To do so, declare a JTextField, then call initializeThreadCountField.
    * To get the value, call getThreadCount() supplying the field instance.
    * This method supplies a default label "Thread Count:"
+   *
    * @param threadCountField the field containing the thread count
    * @see #getThreadCount
    * @see #initializeThreadCountField(JTextField, String)
@@ -494,12 +499,14 @@ public abstract class ConcurrentExample extends JPanel {
   protected void initializeThreadCountField(JTextField threadCountField) {
     initializeThreadCountField(threadCountField, "Thread Count:");
   }
+
   /**
    * The examples have the ability to create one or more thread count text fields.
    * To do so, declare a JTextField, then call initializeThreadCountField.
    * To get the value, call getThreadCount() supplying the field instance.
+   *
    * @param threadCountField the field containing the thread count
-   * @param labelText the label to display
+   * @param labelText        the label to display
    * @see #getThreadCount
    */
   protected void initializeThreadCountField(final JTextField threadCountField, String labelText) {
@@ -513,11 +520,10 @@ public abstract class ConcurrentExample extends JPanel {
     final boolean[] inchange = new boolean[]{false};
     spinner.addChangeListener(new ChangeListener() {
       public void stateChanged(ChangeEvent e) {
-        final int value = (Integer)spinner.getValue();
-        if(value < 1) {
+        final int value = (Integer) spinner.getValue();
+        if (value < 1) {
           spinner.setValue(1);
-        }
-        else {
+        } else {
           // don't change the threadCountField if the change if the notification originated from the threadCountField
           if (!inchange[0]) {
             threadCountField.setText(String.valueOf(value));
@@ -556,13 +562,14 @@ public abstract class ConcurrentExample extends JPanel {
 
   /**
    * Returns the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
-   * @return the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
+   *
    * @param threadCountField the field containing the count value to convert
+   * @return the value in the threadCountField as an int. If it can't be converted or is blank, returns 1
    */
   protected int getThreadCount(JTextField threadCountField) {
     int count = 1;
     String countText = threadCountField.getText();
-    if(!StringUtils.isBlank(countText)) {
+    if (!StringUtils.isBlank(countText)) {
       try {
         count = Integer.parseInt(countText);
       } catch (NumberFormatException e) {
@@ -573,11 +580,12 @@ public abstract class ConcurrentExample extends JPanel {
   }
 
   protected int getThreadCount() {
-      return getThreadCount(threadCountField);
+    return getThreadCount(threadCountField);
   }
 
   /**
    * Resets the supplied thread count field to "1"
+   *
    * @param threadCountField the field to reset
    */
   protected void resetThreadCountField(JTextField threadCountField) {
@@ -586,8 +594,9 @@ public abstract class ConcurrentExample extends JPanel {
 
   /**
    * Resets the supplied thread count field to "1"
+   *
    * @param threadCountField the field to reset
-   * @param value the value to set in the field
+   * @param value            the value to set in the field
    */
   protected void resetThreadCountField(JTextField threadCountField, int value) {
     threadCountField.setText(String.valueOf(value));
@@ -614,8 +623,7 @@ public abstract class ConcurrentExample extends JPanel {
             if (messageLabel.getText().equals(text) && messageLabel.getForeground() == ConcurrentExampleConstants.MESSAGE_COLOR) {
               messageLabel.setForeground(ConcurrentExampleConstants.MESSAGE_FLASH_COLOR);
             }
-          }
-          catch (InterruptedException e) {
+          } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
           }
         }
@@ -632,18 +640,19 @@ public abstract class ConcurrentExample extends JPanel {
     message2Label.setForeground(foreground);
     message2Label.setText(message2Label.getText());
   }
-    protected void clearMessages() {
-        clearMessage1();
-        clearMessage2();
-    }
-    protected void clearMessage2() {
-        message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    }
 
-    protected void clearMessage1() {
-        message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
-    }
+  protected void clearMessages() {
+    clearMessage1();
+    clearMessage2();
+  }
 
+  protected void clearMessage2() {
+    message2(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+  }
+
+  protected void clearMessage1() {
+    message1(" ", ConcurrentExampleConstants.DEFAULT_BACKGROUND);
+  }
 
 
   //  protected void description(String text) {
@@ -677,37 +686,37 @@ public abstract class ConcurrentExample extends JPanel {
   }
 
 
-    private static String applyState(int state, String snippet) {
+  private static String applyState(int state, String snippet) {
 //        System.out.println("ConcurrentExample.applyState " + state);
-        if (snippet != null) {
-          if (state == -1) {
-            snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", "$1");
-          } else {
-            snippet = snippet.replaceAll("<state" + state + ":(#\\d\\d\\d\\d\\d\\d)>", "$1");
-            snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", ConcurrentExampleConstants.HTML_DISABLED_COLOR);
-          }
-          // in order to change the size of the selected font, include a size css font style as follows: font-size:state2-size
-          // the state number (in this example state2) corresponds to the state parameter
-          if (state>=0) {
-            snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
-            snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
-          }
+    if (snippet != null) {
+      if (state == -1) {
+        snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", "$1");
+      } else {
+        snippet = snippet.replaceAll("<state" + state + ":(#\\d\\d\\d\\d\\d\\d)>", "$1");
+        snippet = snippet.replaceAll("<state\\d:(#\\d\\d\\d\\d\\d\\d)>", ConcurrentExampleConstants.HTML_DISABLED_COLOR);
+      }
+      // in order to change the size of the selected font, include a size css font style as follows: font-size:state2-size
+      // the state number (in this example state2) corresponds to the state parameter
+      if (state >= 0) {
+        snippet = snippet.replaceAll(String.format("state%d-size", state), "24pt");
+        snippet = snippet.replaceAll(String.format("state[~%d]-size", state), "21pt");
+      }
 
-          // for newer html output, intelliJ is spitting out css. The default css class is .s9
-          // Look for <state2:s1> if state == 2 convert that to s1 else s9
+      // for newer html output, intelliJ is spitting out css. The default css class is .s9
+      // Look for <state2:s1> if state == 2 convert that to s1 else s9
 //          System.out.println(snippet);
-          snippet = snippet.replaceAll("<state" + state + "\\:(\\w*)>", "$1");
-          snippet = snippet.replaceAll("<state\\d:(s\\w+)>", "s9");
-          snippet = snippet.replaceAll("<state\\d:(\\w+)>", "unselected");
+      snippet = snippet.replaceAll("<state" + state + "\\:(\\w*)>", "$1");
+      snippet = snippet.replaceAll("<state\\d:(s\\w+)>", "s9");
+      snippet = snippet.replaceAll("<state\\d:(\\w+)>", "unselected");
 //          "<format state=3, class=\"keyword\"/>int </format>"
 
 
-          snippet = snippet.replaceAll(String.format("<%d\\s+(\\w+)>", state), String.format("</span><span class=\"%s\">", "$1"));
-          snippet = snippet.replaceAll("<\\d+\\s*(\\w+)>", "</span><span class=\"unselected\">");
+      snippet = snippet.replaceAll(String.format("<%d\\s+(\\w+)>", state), String.format("</span><span class=\"%s\">", "$1"));
+      snippet = snippet.replaceAll("<\\d+\\s*(\\w+)>", "</span><span class=\"unselected\">");
 
-        }
-        return snippet;
     }
+    return snippet;
+  }
 
 
   private JLabel getSnippetLabel() {
@@ -792,6 +801,7 @@ public abstract class ConcurrentExample extends JPanel {
 
   /**
    * Gets the minimum snippet width, accounting for offset by dragging
+   *
    * @return the snippet width, accounting for offset by dragging
    */
   public int getSnippetMinimumWidth() {
@@ -800,6 +810,7 @@ public abstract class ConcurrentExample extends JPanel {
 
   /**
    * This returns the default vertical shift from the bottom button to the monolith. Usually 0, but for F&J which needs more room, use a negative shift
+   *
    * @return the shift from the default snippet pane.
    */
   public int getVerticalOffsetShift() {

@@ -163,7 +163,8 @@ public class ForkJoinMaximumProblem {
 //    time = stopwatch.getDurationString();
 //    System.out.printf("Synchronous Done. Result: %d  time:%s%n", max, time);
   }
-//
+
+  //
   private void displayThreadCounts() {
     System.out.println("Current thread:" + Thread.currentThread());
     for (Map.Entry<Thread, Integer> entry : counterMap.entrySet()) {

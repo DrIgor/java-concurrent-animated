@@ -52,84 +52,84 @@ public class SemaphoreExample extends ConcurrentExample {
     initializeFair(fair);
   }
 
-    protected void createCanvas() {
-     setCanvas(new BasicCanvas(this, getTitle()));
-    }
+  protected void createCanvas() {
+    setCanvas(new BasicCanvas(this, getTitle()));
+  }
 
-    protected  String getSnippetText() {
-      String snippet =
-  " <6 comment>// Constructor - pass in the number of permits\n" +
-  " <6 keyword>final <6 default>Semaphore semaphore =\n" +
-  "     <6 keyword>new<6 default> Semaphore(<6 literal>4,<6 keyword> true<6 default>);\n" +
-  " <0 keyword>final <0 default>Semaphore semaphore =\n" +
-  "     <0 keyword>new<0 default> Semaphore(<0 literal>4<6 default>);\n" +
-  "\n" +
-  " <1 comment>// Threads attempting to acquire will block until\n" +
-  " // the specified number of releases are counted\n" +
-  " <1 keyword>try <1 default>{\n" +
-  "   semaphore.acquire();\n" +
-  " }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
-  "\n" +
-  " <2 default>semaphore.release();\n" +
-  "\n" +
-  " <4 comment>// tryAcquire is like acquire, except that it\n" +
-  " // times out after an (optional) specified time.\n" +
-  " <4 keyword>try<4 default> {\n" +
-  " <4 keyword>  if<4 default>(semaphore.tryAcquire(<4 literal>5<4 default>, TimeUnit.SECONDS)) {\n" +
-  " <4 comment>    // Do something\n" +
-  " <4 default>  }\n" +
-  " } <4 keyword><4 keyword>catch<4 default> (InterruptedException e) { }\n" +
-  "\n" +
-  " <3 comment>// If no time is specified, times out immediately\n" +
-  " <3 comment>//    if not acquired\n" +
-  " <3 keyword>if<3 default>(semaphore.tryAcquire()) {\n" +
-  " <3 comment>  // Do something\n" +
-  " <3 default>}\n";
+  protected String getSnippetText() {
+    String snippet =
+      " <6 comment>// Constructor - pass in the number of permits\n" +
+        " <6 keyword>final <6 default>Semaphore semaphore =\n" +
+        "     <6 keyword>new<6 default> Semaphore(<6 literal>4,<6 keyword> true<6 default>);\n" +
+        " <0 keyword>final <0 default>Semaphore semaphore =\n" +
+        "     <0 keyword>new<0 default> Semaphore(<0 literal>4<6 default>);\n" +
+        "\n" +
+        " <1 comment>// Threads attempting to acquire will block until\n" +
+        " // the specified number of releases are counted\n" +
+        " <1 keyword>try <1 default>{\n" +
+        "   semaphore.acquire();\n" +
+        " }<1 keyword> catch <1 default>(InterruptedException e) { }\n" +
+        "\n" +
+        " <2 default>semaphore.release();\n" +
+        "\n" +
+        " <4 comment>// tryAcquire is like acquire, except that it\n" +
+        " // times out after an (optional) specified time.\n" +
+        " <4 keyword>try<4 default> {\n" +
+        " <4 keyword>  if<4 default>(semaphore.tryAcquire(<4 literal>5<4 default>, TimeUnit.SECONDS)) {\n" +
+        " <4 comment>    // Do something\n" +
+        " <4 default>  }\n" +
+        " } <4 keyword><4 keyword>catch<4 default> (InterruptedException e) { }\n" +
+        "\n" +
+        " <3 comment>// If no time is specified, times out immediately\n" +
+        " <3 comment>//    if not acquired\n" +
+        " <3 keyword>if<3 default>(semaphore.tryAcquire()) {\n" +
+        " <3 comment>  // Do something\n" +
+        " <3 default>}\n";
     return snippet;
   }
 
   @Override
   public String getToolTipText() {
     return "<HTML>" +
-            "<body>" +
-            "Semaphore permits a specified fixed number<br>" +
-            "of threads access.<br><br>" +
-            "Once permits are exhausted, no other threads<br>" +
-            "may acquire until holding threads release.<br><br>" +
-            "Unfair mode selects waiting threads randomly when permits becomes available.<br>" +
-            "Fair mode selects waiting threads in the order they arrived." +
-            "</body>" +
-            "</HTML>";
+      "<body>" +
+      "Semaphore permits a specified fixed number<br>" +
+      "of threads access.<br><br>" +
+      "Once permits are exhausted, no other threads<br>" +
+      "may acquire until holding threads release.<br><br>" +
+      "Unfair mode selects waiting threads randomly when permits becomes available.<br>" +
+      "Fair mode selects waiting threads in the order they arrived." +
+      "</body>" +
+      "</HTML>";
   }
 
   protected void initializeComponents() {
     reset();
     if (!initialized) {
-        initializeButton(acquireButton, new Runnable() {
-          public void run() {
-            setAnimationCanvasVisible(true);
-            int count = getThreadCount(threadCountField);
-            for (int i = 0; i < count; i++) {
-              threadCountExecutor.execute(new Runnable() {
-                public void run() {
-                  acquire();
-                }
-              });
-            }
+      initializeButton(acquireButton, new Runnable() {
+        public void run() {
+          setAnimationCanvasVisible(true);
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                acquire();
+              }
+            });
           }
-        });
-        initializeButton(releaseButton, new Runnable() {
-          public void run() {
-            int count = getThreadCount(threadCountField);
-            for (int i = 0; i < count; i++) {
-              threadCountExecutor.execute(new Runnable() {
-                public void run() {
-                  release();
-                }
-              });
-            }
+        }
+      });
+      initializeButton(releaseButton, new Runnable() {
+        public void run() {
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                release();
+              }
+            });
           }
-        });
+        }
+      });
       initializeButton(immediatetryAcquireButton, new Runnable() {
         public void run() {
           timeoutString = "";
@@ -144,19 +144,19 @@ public class SemaphoreExample extends ConcurrentExample {
         }
       });
       addButtonSpacer();
-        initializeButton(timedtryAcquireButton, new Runnable() {
-          public void run() {
-            timeoutString = "1L, TimeUnit.SECONDS";
-            int count = getThreadCount(threadCountField);
-            for (int i = 0; i < count; i++) {
-              threadCountExecutor.execute(new Runnable() {
-                public void run() {
-                  tryTimedAcquire();
-                }
-              });
-            }
+      initializeButton(timedtryAcquireButton, new Runnable() {
+        public void run() {
+          timeoutString = "1L, TimeUnit.SECONDS";
+          int count = getThreadCount(threadCountField);
+          for (int i = 0; i < count; i++) {
+            threadCountExecutor.execute(new Runnable() {
+              public void run() {
+                tryTimedAcquire();
+              }
+            });
           }
-        });
+        }
+      });
       initializeThreadCountField(threadCountField);
 
       initialized = true;
@@ -247,8 +247,7 @@ public class SemaphoreExample extends ConcurrentExample {
         sprite.setRejected();
         setState(4);
       }
-    }
-    catch (InterruptedException e) {
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     }
   }
@@ -293,6 +292,7 @@ public class SemaphoreExample extends ConcurrentExample {
   private void displayPermits() {
     message2(String.format("Available permits:%d of %d", semaphore.availablePermits(), 4), Color.white);
   }
+
   @Override
   public void reset() {
     super.reset();
@@ -313,8 +313,7 @@ public class SemaphoreExample extends ConcurrentExample {
   protected void setDefaultState() {
     if (isFair()) {
       setState(6);
-    }
-    else {
+    } else {
       setState(0);
     }
   }

@@ -21,6 +21,7 @@ public class ImagePanel extends JPanel {
   private int xPos;
   private int yPos;
   private final static Logger logger = Logger.getLogger(ImagePanel.class.getName());
+
   public void setVisible(boolean aFlag) {
     super.setVisible(aFlag);
   }
@@ -47,7 +48,7 @@ public class ImagePanel extends JPanel {
     });
     addMouseMotionListener(new MouseMotionAdapter() {
       public void mouseDragged(MouseEvent e) {
-        if(concurrentExample != null && concurrentExample.getAnimationCanvas().isVisible()) {
+        if (concurrentExample != null && concurrentExample.getAnimationCanvas().isVisible()) {
           int deltaX = e.getX() - xPos;
           int deltaY = e.getY() - yPos;
           xPos = e.getX();
@@ -62,7 +63,7 @@ public class ImagePanel extends JPanel {
     addMouseListener(new MouseAdapter() {
       public void mouseClicked(MouseEvent e) {
         int clickCount = e.getClickCount();
-        if(clickCount > 1) {
+        if (clickCount > 1) {
           if (concurrentExample != null) {
             concurrentExample.setAnimationCanvasVisible(true);
           }
@@ -80,8 +81,8 @@ public class ImagePanel extends JPanel {
    * If the example is displayed, changes to imageName view. If an imageName is displayed, changes to example view
    */
   public void toggleView() {
-    if(concurrentExample != null) {
-      if(concurrentExample.getAnimationCanvas().isVisible()) {
+    if (concurrentExample != null) {
+      if (concurrentExample.getAnimationCanvas().isVisible()) {
         setImageView();
       } else {
         setExampleView();
@@ -129,7 +130,7 @@ public class ImagePanel extends JPanel {
   }
 
   public void setBounds(int x, int y, int width, int height) {
-    if(this.yOverride == 0 || yOverride > y) {
+    if (this.yOverride == 0 || yOverride > y) {
       super.setBounds(x, y, width, height);
       this.yOverride = y;
     } else {

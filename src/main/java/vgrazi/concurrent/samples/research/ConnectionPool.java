@@ -43,15 +43,15 @@ public class ConnectionPool {
       public void run() {
 
         try {
-          while(running) {
+          while (running) {
             output("ConnectionPool.refill pool is full awaiting...");
             lock.lock();
-            while(running && connections.size() >= min) {
+            while (running && connections.size() >= min) {
               belowMinimum.await();
             }
 
             output("ConnectionPool.refill need new connections.");
-            for(int i = 0; running && i < refills; i++) {
+            for (int i = 0; running && i < refills; i++) {
               Connection connection = createConnection();
               connections.add(connection);
               output("ConnectionPool.added");
@@ -59,8 +59,7 @@ public class ConnectionPool {
             }
             lock.tryLock(1, TimeUnit.SECONDS);
           }
-        }
-        catch(InterruptedException e) {
+        } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
         } finally {
           lock.unlock();
@@ -78,7 +77,7 @@ public class ConnectionPool {
       lock.unlock();
     }
     // close all connections.
-    for(Connection connection : connections) {
+    for (Connection connection : connections) {
       connection.close();
     }
   }
@@ -90,18 +89,17 @@ public class ConnectionPool {
     Connection connection = null;
     lock.lock();
     try {
-      while(connections.isEmpty()) {
+      while (connections.isEmpty()) {
         output("ConnectionPool.getConnection no connections. Awaiting connections...");
         hasConnections.await();
       }
       // Since this is the only place to grab a connection, and since we are still in the lock block where
       // the connections List was tested, we are guaranteed to find a connection here.
-      if(running) {
+      if (running) {
         connection = connections.remove(0);
       }
       belowMinimum.signal();
-    }
-    catch(InterruptedException e) {
+    } catch (InterruptedException e) {
       Thread.currentThread().interrupt();
     } finally {
       lock.unlock();
@@ -133,8 +131,7 @@ public class ConnectionPool {
           Thread.sleep(5000);
           pool.output("Stopping...");
           pool.stop();
-        }
-        catch(InterruptedException e) {
+        } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
         }
       }
@@ -144,7 +141,7 @@ public class ConnectionPool {
 
   private void test() throws InterruptedException {
     int count = 10;
-    for(int i = 0; i < count; i++) {
+    for (int i = 0; i < count; i++) {
       Thread.sleep(5 * 1000);
       output("Connection.main requesting connections");
       Connection connection = getConnection();
@@ -170,8 +167,7 @@ public class ConnectionPool {
       long time = (long) (1000 * (1 + Math.random()));
       try {
         Thread.sleep(time);
-      }
-      catch(InterruptedException e) {
+      } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
       }
 

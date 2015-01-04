@@ -63,7 +63,7 @@ public class BlinkerExample extends ConcurrentExample {
       changeColor(comp, defaultColor);
       blinkerPanel.add(comp);
       buttonArray[i] = comp;
-      if(i == buttons -1) {
+      if (i == buttons - 1) {
         // use the last button for sizing (its the largest)
         Dimension preferredSize = comp.getPreferredSize();
         int buttonWidth = preferredSize.width;
@@ -159,39 +159,39 @@ public class BlinkerExample extends ConcurrentExample {
 
   @Override
   protected String getSnippetText() {
-    return  " <0 highlight>///// COURTESY DR. HEINZ KABUTZ -\n" +
-            "      CONCURRENCY SPECIALIST COURSE /////<0 default>\n<br/>" +
-            " <0 keyword>private <0 default>Phaser phaser = <0 keyword>new <0 default>Phaser(21) {\n" +
-            " <2 keyword>   protected boolean <2 default>onAdvance(<2 keyword>int<2 default> phase,\n" +
-            "                      <2 keyword>int <2 default>registeredParties) {\n" +
-            "     <2 keyword>return <2 default>phase >= BLINK_COUNT - 1\n" +
-            "                      || registeredParties == 0;\n" +
-            "   }\n" +
-            " <0 default>};<br/>" +
-            "<1 keyword>public void <1 default>start() {\n" +
-            " Random rand = new Random();\n" +
-            " for (final JComponent comp: buttonArray) {\n" +
-            "  Thread thread = new Thread() {\n" +
-            "   public void run() {\n" +
-            "    <3 keyword>try <3 default>{\n" +
-            "     <4 keyword>do <3 default>{\n" +
-            "      <3 default>Color defaultColor = comp.getBackground();\n" +
-            "      Color newColor = <3 keyword>new <3 default>Color(rand.nextInt());\n" +
-            "      changeColor(comp, newColor);\n" +
-            "      Thread.sleep(500 + rand.nextInt(3000));\n" +
-            "      <4 default>changeColor(comp, defaultColor);\n" +
-            "      Toolkit.getDefaultToolkit().beep();\n" +
-            "      Thread.sleep(2000);\n" +
-            "      phaser.arriveAndAwaitAdvance();\n" +
-            "     } <4 keyword>while<4 default> (!phaser.isTerminated());\n" +
-            "    <3 default>} <3 keyword>catch<3 default> (InterruptedException e) {\n" +
-            "     Thread.currentThread().interrupt();\n" +
-            "    }\n" +
-            "   }\n" +
-            "  };\n" +
-            "  <1 default>thread.start();\n" +
-            " }\n" +
-            "}";
+    return " <0 highlight>///// COURTESY DR. HEINZ KABUTZ -\n" +
+      "      CONCURRENCY SPECIALIST COURSE /////<0 default>\n<br/>" +
+      " <0 keyword>private <0 default>Phaser phaser = <0 keyword>new <0 default>Phaser(21) {\n" +
+      " <2 keyword>   protected boolean <2 default>onAdvance(<2 keyword>int<2 default> phase,\n" +
+      "                      <2 keyword>int <2 default>registeredParties) {\n" +
+      "     <2 keyword>return <2 default>phase >= BLINK_COUNT - 1\n" +
+      "                      || registeredParties == 0;\n" +
+      "   }\n" +
+      " <0 default>};<br/>" +
+      "<1 keyword>public void <1 default>start() {\n" +
+      " Random rand = new Random();\n" +
+      " for (final JComponent comp: buttonArray) {\n" +
+      "  Thread thread = new Thread() {\n" +
+      "   public void run() {\n" +
+      "    <3 keyword>try <3 default>{\n" +
+      "     <4 keyword>do <3 default>{\n" +
+      "      <3 default>Color defaultColor = comp.getBackground();\n" +
+      "      Color newColor = <3 keyword>new <3 default>Color(rand.nextInt());\n" +
+      "      changeColor(comp, newColor);\n" +
+      "      Thread.sleep(500 + rand.nextInt(3000));\n" +
+      "      <4 default>changeColor(comp, defaultColor);\n" +
+      "      Toolkit.getDefaultToolkit().beep();\n" +
+      "      Thread.sleep(2000);\n" +
+      "      phaser.arriveAndAwaitAdvance();\n" +
+      "     } <4 keyword>while<4 default> (!phaser.isTerminated());\n" +
+      "    <3 default>} <3 keyword>catch<3 default> (InterruptedException e) {\n" +
+      "     Thread.currentThread().interrupt();\n" +
+      "    }\n" +
+      "   }\n" +
+      "  };\n" +
+      "  <1 default>thread.start();\n" +
+      " }\n" +
+      "}";
   }
 
   @Override

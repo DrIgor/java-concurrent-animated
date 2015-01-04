@@ -31,8 +31,7 @@ public class ButtonMenuLayout extends FlowLayout {
     // by now, the following should be set: other, buttonMenuWidth, buttonMenuHeight, buttonMenu
     if (buttonMenu != null && buttonMenu.isVisible()) {
       buttonMenu.setBounds(0, 0, buttonMenuWidth, buttonMenuHeight);
-    }
-    else {
+    } else {
       buttonMenuWidth = 0;
     }
     if (other != null) {

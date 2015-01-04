@@ -81,14 +81,16 @@ public class FutureExample extends ConcurrentExample {
         "  //       and the block passes through.\n" +
         "  <2 keyword>try{\n" +
         "  <2 default>  Object result = future.get();\n" +
-        "  <2 keyword>} catch(<2 default>InterruptedException e<2 keyword>){...}\n" +
-        "  <3 keyword>} catch(<3 default>CancellationException e<3 keyword>){...}\n" +
-        "<3 comment>\n\n\n" +
+        "  <2 keyword>} catch(<2 default>InterruptedException e<2 keyword>){<2 comment>\n\n" +
+        "    // thread was interrupted\n" +
+        "  <2 keyword>} catch(<2 default>CancellationException e<2 keyword>){<3 highlight>\n\n" +
+        "    // cancel was called<2 default>\n\n" +
+        "  <2 keyword>} catch(<2 default>ExecutionException e<2 keyword>){<2 comment>\n\n" +
+        "    // computation threw an exception\n" +
+        "  }\n" +
+        "<2 comment>\n\n\n" +
         "  //  A Future may be canceled before it has completed\n" +
-        "  <3 keyword>try{\n" +
-        "  <3 default>  boolean canceled = future.cancel();\n";
-
-
+        "  <3 default>boolean canceled = future.cancel(mayInterruptIfRunning);\n";
   }
 
   protected void initializeComponents() {
@@ -98,6 +100,7 @@ public class FutureExample extends ConcurrentExample {
         public void run() {
           try {
             message1(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
+            message2(" ", ConcurrentExampleConstants.MESSAGE_COLOR);
             setState(1);
             enableGetButton();
             launchAcquiringSprite();
@@ -124,8 +127,8 @@ public class FutureExample extends ConcurrentExample {
               Thread.currentThread().interrupt();
             } catch (ExecutionException e) {
               e.printStackTrace();
-            }catch (CancellationException e) {
-              message1("cancel() failed. Threw CancellationException", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
+            } catch (CancellationException e) {
+              message2("CancellationException", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
             }
           }
           // select a random mutex from the list
@@ -145,11 +148,10 @@ public class FutureExample extends ConcurrentExample {
                 sprite.setThreadState(state);
                 sprite.setRejected();
               }
-              if(pullerSprite[0]!= null){
+              if (pullerSprite[0] != null) {
                 pullerSprite[0].setReleased();
               }
-            }
-            else {
+            } else {
               message1("cancel() failed.", ConcurrentExampleConstants.ERROR_MESSAGE_COLOR);
             }
           }
